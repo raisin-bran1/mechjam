@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float speed;
-    public float jump;
+    public float speed, jump;
+    private bool grounded;
 
     // Start is called before the first frame update
     void Start()
@@ -28,10 +28,15 @@ public class PlayerMovement : MonoBehaviour
         {
             v.x += speed;
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && grounded) // Later: add jump buffer
         {
             v.y = jump;
+            grounded = false;
         }
         rb.velocity = v;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        grounded = true;
     }
 }
