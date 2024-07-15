@@ -23,9 +23,9 @@ public class Worldbuilder : MonoBehaviour
     }
     public void placeGround()
     {
-        for (int i = -10; i <= 10; i++)
+        for (int i = -25; i <= 25; i++)
         {
-            Vector3Int v = new Vector3Int(i, -3, 0);
+            Vector3Int v = new Vector3Int(i, -6, 0);
             terrain.SetTile(v, tile);
         }
     }
