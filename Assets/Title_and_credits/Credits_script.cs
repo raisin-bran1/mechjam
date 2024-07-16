@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Start_button : MonoBehaviour
+public class Credits_script : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -18,8 +17,8 @@ public class Start_button : MonoBehaviour
         
     }
 
-    public void BeginGame()
+    public void OpenTitle()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Title");
     }
 }
