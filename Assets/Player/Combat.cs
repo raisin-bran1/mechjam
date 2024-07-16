@@ -2,14 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Combat : MonoBehaviour
 {
     private enum Weapon {melee, ranged, laser}
     private Weapon weapon = Weapon.melee;
     public GameObject missile, laser;
-    public Text hpDisplay;
     private float cooldown = 1000;
     public float health, maxHealth, damage;
     private float invincibility = 0;
@@ -27,6 +25,12 @@ public class Combat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (cooldown >= 3)
+        {
+            Destroy(GameObject.FindWithTag("Laser"));
+        }
+
         if (damageGradient > 0)
         {
             UpdateDamageColor();
@@ -62,11 +66,6 @@ public class Combat : MonoBehaviour
                 }
             }
         }
-
-        if (cooldown >= 3)
-        {
-            Destroy(GameObject.FindWithTag("Laser"));
-        }
     }
 
     private void UpdateDamageColor()
@@ -94,7 +93,6 @@ public class Combat : MonoBehaviour
         invincibility = damageTime;
         damageGradient = damageTime;
         spriteRenderer.color = Color.red;
-        hpDisplay.text = "HP: " + ((float) (int) (health*10) / 10).ToString();
         if (health <= 0)
         {
             Debug.Log("You lose!");

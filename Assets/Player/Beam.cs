@@ -20,7 +20,7 @@ public class Beam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateAngle();
+        UpdateAngleInstant();
         UpdateDamage();
         transform.position = GameObject.FindWithTag("Player").transform.position;
     }
@@ -40,15 +40,6 @@ public class Beam : MonoBehaviour
         Vector2 direction = new Vector2(point.x - transform.position.x, point.y - transform.position.y);
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        float angle2 = transform.eulerAngles[2];
-        if (Math.Abs(angle - angle2) % 360 < 360 - Math.Abs(angle - angle2) % 360)
-        {
-            angle = Math.Max(angle, (angle2 - Time.deltaTime * rotationSpeed));
-        } else
-        {
-            angle = Math.Min(angle, (angle2 + Time.deltaTime * rotationSpeed));
-        }
-        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
     }
 
     void UpdateDamage()

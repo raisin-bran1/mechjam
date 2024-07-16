@@ -12,13 +12,13 @@ public class EnemyCombat : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (damageGradient > 0) {
             UpdateDamageColor();
@@ -44,7 +44,7 @@ public class EnemyCombat : MonoBehaviour
             v *= 10;
             v.y *= 2;
             Debug.Log(v.x + " " + v.y);
-            collision.gameObject.GetComponent<PlayerMovement>().UnGround();
+            //collision.gameObject.GetComponent<PlayerMovement>().UnGround();
             collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
         }
     }
