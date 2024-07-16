@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8428813904110351030}
   - component: {fileID: -6860046416572662188}
   - component: {fileID: 1245697926797870565}
+  - component: {fileID: 8443860939692407012}
   m_Layer: 0
   m_Name: Sheep
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,3 +173,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -4102555234996122338}
+--- !u!114 &8443860939692407012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670954835941540000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19490dda5db92bc44b1c8de7b76fd100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
