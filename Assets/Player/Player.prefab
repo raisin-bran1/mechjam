@@ -188,3 +188,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missile: {fileID: 5974020045485489920, guid: 848394bf84fb1f945b3678bd2f045556, type: 3}
+  laser: {fileID: 2339611323139433225, guid: 286fcad235f8c4c4a9e34bd2c41df51c, type: 3}
