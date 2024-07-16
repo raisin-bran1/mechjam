@@ -39,7 +39,7 @@ public class Worldbuilder : MonoBehaviour
     }
     public void placeGround()
     {
-        for (int i = -25; i <= 25; i++)
+        for (int i = -50; i <= 50; i++)
         {
             Vector3Int v = new Vector3Int(i, -6, 0);
             terrain.SetTile(v, tile);
@@ -48,6 +48,7 @@ public class Worldbuilder : MonoBehaviour
 
     public void spawnSheep(float x)
     {
+        sheep.GetComponent<EnemyMove>().speed = Random.Range(2,4);
         Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
     }
 }
