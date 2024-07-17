@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Credits_script : MonoBehaviour
 {
+    private GameControl t;
     // Start is called before the first frame update
     void Start()
     {
-        
+        t = GameObject.FindWithTag("GameController").GetComponent<GameControl>();
     }
 
     // Update is called once per frame
@@ -19,6 +20,6 @@ public class Credits_script : MonoBehaviour
 
     public void OpenTitle()
     {
-        SceneManager.LoadScene("Title");
+        t.LoadScene("Title");
     }
 }

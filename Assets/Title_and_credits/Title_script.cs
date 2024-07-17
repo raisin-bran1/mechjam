@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class Start_button : MonoBehaviour
 {
+    private GameControl t;
     // Start is called before the first frame update
     void Start()
     {
-        
+        t = GameObject.FindWithTag("GameController").GetComponent<GameControl>();
     }
 
     // Update is called once per frame
@@ -20,11 +21,11 @@ public class Start_button : MonoBehaviour
 
     public void BeginGame()
     {
-        SceneManager.LoadScene("Game");
+        t.LoadScene("Game");
     }
 
     public void OpenCredits()
     {
-        SceneManager.LoadScene("Credits");
+        t.LoadScene("Credits");
     }
 }
