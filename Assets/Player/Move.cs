@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed, jump;
     private bool grounded = true;
-    private bool ungrounded = false;
-    public GameObject ground;
+    private int ungrounded = 0;
     private static float epsilon = 0.02f;
-
+    
+    GameObject sprite;
     Animator animator;
     SpriteRenderer spriteRenderer;
 
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        sprite = gameObject.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -36,12 +38,12 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ungrounded) {
-            ungrounded = false;
-            if (gameObject.GetComponent<Collider2D>().IsTouching(ground.GetComponent<Collider2D>()))
+        if (ungrounded > 0) {
+            if (ungrounded == 1)
             {
                 grounded = true;
             }
+            ungrounded -= 1;
         }
         Vector2 v = rb.velocity;
         if (grounded)
@@ -72,29 +74,37 @@ public class PlayerMovement : MonoBehaviour
         }
         rb.velocity = v;
 
-        if (Math.Abs(rb.velocity.x - 0) < epsilon)
+        /*if (Math.Abs(rb.velocity.x - 0) < epsilon)
         {
-            animator.SetFloat("xVelocity", -1);
+            animator.SetFloat("xVelocity", 0);
         }
         else
         {
             animator.SetFloat("xVelocity", 1);
-        }
+        }*/
+        animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
         if (rb.velocity.x > epsilon)
         {
-            spriteRenderer.flipX = false;
+            Vector3 scale = sprite.transform.localScale;
+            scale.x = 1;
+            sprite.transform.localScale = scale;
         }
         else if (rb.velocity.x < -epsilon)
         {
-            spriteRenderer.flipX = true;
+            Vector3 scale = sprite.transform.localScale;
+            scale.x = -1;
+            sprite.transform.localScale = scale;
         }
 
     }
 
     public void UnGround()
     {
+        if (grounded)
+        {
+            ungrounded = 3;
+        }
         grounded = false;
-        ungrounded = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -102,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             grounded = true;
+            ungrounded = 0;
         }
     }
 
@@ -110,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             grounded = false;
+            ungrounded = 0;
         }
     }
 }
