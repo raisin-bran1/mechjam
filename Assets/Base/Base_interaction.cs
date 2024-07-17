@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Base_interaction : MonoBehaviour
 {
-    public const float startingMaxHealth = 100;
+    public const float startingMaxHealth = 1;
     private float health = startingMaxHealth;
     private float maxHealth = startingMaxHealth;
     private GameControl t;

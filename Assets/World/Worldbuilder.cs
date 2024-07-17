@@ -29,7 +29,6 @@ public class Worldbuilder : MonoBehaviour
         spawnLength = timeUnit / startRate;
         difficulty = 0.5f;
         spawnInterval = Math.Max(1.0f, spawnLength + UnityEngine.Random.Range(-6f, 6f));
-        Instantiate(sheep, new Vector3(0, 0, 0), Quaternion.identity); // Remove
     }
 
     // Update is called once per frame
