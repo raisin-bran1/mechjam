@@ -5,7 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - sheep: {fileID: 6670954835941540000, guid: e049606cd688a7f4a979d7e93282da30, type: 3}
-  - Base: {fileID: 7384659232359675836, guid: 22a6a94079f54a34a83df87e5b0b17ff, type: 3}
+  - bigSheep: {fileID: 8196542108055593352, guid: 026f6019d3e4d7544bbdb02358dab1bc, type: 3}
+  - flyingSheep: {fileID: 863059783829112173, guid: 6a982726d66f0ba42a73c31b5c44efba, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
