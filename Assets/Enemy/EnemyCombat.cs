@@ -9,7 +9,10 @@ public class EnemyCombat : MonoBehaviour
     private float damageGradient = 0;
     private static float damageTime = 0.5f;
     private bool started = false;
+    public bool dead = false;
+    public float energyGiven;
 
+    EnemyMove move;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -17,14 +20,25 @@ public class EnemyCombat : MonoBehaviour
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         started = true;
+        move = gameObject.GetComponent<EnemyMove>();
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (damageGradient > 0) {
+        if (!dead && damageGradient > 0) {
             UpdateDamageColor();
         }
+    }
+
+    public void Kill()
+    {
+        dead = true;
+        move.Kill();
+        Destroy(gameObject, 4.0f);
+        spriteRenderer.color = Color.white;
+        spriteRenderer.sortingLayerName = "Super Foreground";
+        gameObject.layer = 6;
     }
 
     private void UpdateDamageColor()
@@ -38,7 +52,7 @@ public class EnemyCombat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (!dead && collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Combat>().Damage(damage);
             Vector2 v = collision.gameObject.transform.position - gameObject.transform.position;
@@ -50,17 +64,17 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public int Damage(float damage)
+    public float Damage(float damage)
     {
-        if (started)
+        if (!dead && started)
         {
             health -= damage;
             spriteRenderer.color = Color.red;
             damageGradient = damageTime;
             if (health <= 0)
             {
-                Destroy(gameObject);
-                return -1;
+                Kill();
+                return energyGiven;
             }
             return 0;
         }

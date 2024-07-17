@@ -52,7 +52,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -4102555234996122338}
-  speed: 0
+  speed: 3
+  dead: 0
 --- !u!114 &8443860939692407012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   health: 20
+  dead: 0
+  energyGiven: 1
 --- !u!95 &4156309635337331024
 Animator:
   serializedVersion: 5

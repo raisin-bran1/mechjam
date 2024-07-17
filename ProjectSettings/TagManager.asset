@@ -14,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Dead
   - 
   - 
   - 
@@ -41,6 +41,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Super Background
+    uniqueID: 3280476863
+    locked: 0
+  - name: Background
+    uniqueID: 1166311427
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3888039867
+    locked: 0
+  - name: Super Foreground
+    uniqueID: 1819614805
     locked: 0

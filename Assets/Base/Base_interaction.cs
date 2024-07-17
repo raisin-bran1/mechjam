@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Base_interaction : MonoBehaviour
 {
-    private float health = 100;
+    public const float startingMaxHealth = 100;
+    private float health = startingMaxHealth;
+    private float maxHealth = startingMaxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -28,7 +30,17 @@ public class Base_interaction : MonoBehaviour
         {
             EnemyCombat ec = collision.gameObject.GetComponent<EnemyCombat>();
             health -= ec.damage;
-            Destroy(collision.gameObject);
+            ec.Kill();
         }
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

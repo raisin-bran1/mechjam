@@ -23,43 +23,47 @@ public class AstralSheepMovement : EnemyMove
 
     public override void FixedUpdate()
     {
-        if (Time.fixedTime > t)
+        if (!dead)
         {
-            t = Time.fixedTime + UnityEngine.Random.Range(5, 10);
-            base.SetBool("jumping", false);
-            Vector2 v = rb.velocity;
-            v.x = 0;
-            v.y = 10;
-            if (rb.position.x > 0)
+            if (Time.fixedTime > t)
             {
-                v.x -= speed;
+                t = Time.fixedTime + UnityEngine.Random.Range(5, 10);
+                base.SetBool("jumping", false);
+                Vector2 v = rb.velocity;
+                v.x = 0;
+                v.y = 10;
+                if (rb.position.x > 0)
+                {
+                    v.x -= speed;
+                }
+                else
+                {
+                    v.x += speed;
+                }
+                rb.velocity = v;
+            }
+            else if (Time.fixedTime > t - 1)
+            {
+                base.SetBool("jumping", true);
+            }
+
+            if (Math.Abs(rb.velocity.x - 0) < epsilon)
+            {
+                base.SetFloat("xVelocity", 0);
             }
             else
             {
-                v.x += speed;
+                base.SetFloat("xVelocity", 1);
             }
-            rb.velocity = v;
-        } else if (Time.fixedTime > t - 1)
-        {
-            base.SetBool("jumping", true);
-        }
-
-        if (Math.Abs(rb.velocity.x - 0) < epsilon)
-        {
-            base.SetFloat("xVelocity", 0);
-        }
-        else
-        {
-            base.SetFloat("xVelocity", 1);
-        }
-        base.SetFloat("yVelocity", Math.Abs(rb.velocity.y));
-        if (rb.velocity.x > epsilon)
-        {
-            base.SetFlipX(false);
-        }
-        else if (rb.velocity.x < -epsilon)
-        {
-            base.SetFlipX(true);
+            base.SetFloat("yVelocity", Math.Abs(rb.velocity.y));
+            if (rb.velocity.x > epsilon)
+            {
+                base.SetFlipX(false);
+            }
+            else if (rb.velocity.x < -epsilon)
+            {
+                base.SetFlipX(true);
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ public class Worldbuilder : MonoBehaviour
             spawnTime -= spawnInterval;
             spawnInterval = Math.Max(1.0f, spawnLength + UnityEngine.Random.Range(-6f, 6f));
         }
-        if (Time.fixedTime / timeUnit - (Time.fixedTime - Time.deltaTime) / timeUnit == 1)
+        if ((int)(Time.fixedTime / timeUnit) - (int)((Time.fixedTime - Time.deltaTime) / timeUnit) == 1)
         {
             if (UnityEngine.Random.Range(0.0f, 1.0f) < rateChance)
             {

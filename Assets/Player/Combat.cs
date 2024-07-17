@@ -8,26 +8,38 @@ public class Combat : MonoBehaviour
     private enum Weapon {melee, ranged, laser}
     private Weapon weapon = Weapon.melee;
     public GameObject missile, laser;
-    private float cooldown = 1000;
-    public float health, maxHealth, damage;
+    private float cooldown = 0.0f;
+    public float damage;
+    public const float startingMaxEnergy = 10;
+    public const float startingMaxHealth = 10;
+    private float maxHealth = startingMaxHealth;
+    private float health = startingMaxHealth;
     private float invincibility = 0;
     private static float damageTime = 0.5f;
     private float damageGradient;
+    private bool lasering;
+    private float speed;
+    private float energy = 0;
+    private float maxEnergy = startingMaxEnergy;
 
+    PlayerMovement movement;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        movement = gameObject.GetComponent<PlayerMovement>();
+        speed = movement.speed;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (cooldown >= 3)
+        if (lasering && cooldown <= 0)
         {
+            lasering = false;
+            movement.speed = speed;
             Destroy(GameObject.FindWithTag("Laser"));
         }
 
@@ -35,12 +47,12 @@ public class Combat : MonoBehaviour
         {
             UpdateDamageColor();
         }
-        cooldown += Time.deltaTime;
+        cooldown -= Time.deltaTime;
         invincibility = Math.Max(invincibility - Time.deltaTime, 0);
-        if (Input.GetKeyDown(KeyCode.Alpha1) && cooldown >= 3)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && cooldown <= 0)
         {
             weapon = Weapon.melee;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2) && cooldown >= 3)
+        } else if (Input.GetKeyDown(KeyCode.Alpha2) && cooldown <= 0)
         {
             weapon = Weapon.ranged;
         } else if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -52,17 +64,19 @@ public class Combat : MonoBehaviour
         {
             if (weapon == Weapon.ranged)
             {
-                if (cooldown >= 0.5)
+                if (cooldown <= 0)
                 {
                     SpawnMissile();
-                    cooldown = 0;
+                    cooldown = 0.5f;
                 }
             } else if (weapon == Weapon.laser)
             {
-                if (cooldown >= 3)
+                if (cooldown <= 0 && !lasering)
                 {
+                    lasering = true;
+                    movement.speed = 0;
                     SpawnLaser();
-                    cooldown = 0;
+                    cooldown = 3.0f;
                 }
             }
         }
@@ -99,6 +113,31 @@ public class Combat : MonoBehaviour
             return -1;
         }
         return 0;
+    }
+
+    public void AddEnergy(float e)
+    {
+        energy = Math.Min(maxEnergy, energy + e);
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetEnergy()
+    {
+        return energy;
+    }
+
+    public float GetMaxEnergy()
+    {
+        return maxEnergy;
     }
 
 }

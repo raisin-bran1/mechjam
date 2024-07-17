@@ -12,6 +12,9 @@ public class Projectile : MonoBehaviour
     private Collider2D[] collisions = new Collider2D[20];
     private bool hasCollided = false;
 
+    GameObject player;
+    Combat combat;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,9 @@ public class Projectile : MonoBehaviour
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         direction *= speed;
         rb.velocity = direction;
+
+        player = GameObject.Find("Player");
+        combat = player.GetComponent<Combat>();
     }
 
     // Update is called once per frame
@@ -43,7 +49,7 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.tag == "Enemy")
             {
                 // Damage enemy
-                collision.gameObject.GetComponent<EnemyCombat>().Damage(damage);
+                combat.AddEnergy(collision.gameObject.GetComponent<EnemyCombat>().Damage(damage));
             }
             //make explosion
             GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
@@ -55,7 +61,7 @@ public class Projectile : MonoBehaviour
                 Collider2D col = collisions[i];
                 if (col.gameObject.tag == "Enemy")
                 {
-                    col.gameObject.GetComponent<EnemyCombat>().Damage(damage);
+                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(damage));
                 }
             }
             Destroy(e, 0.35f);

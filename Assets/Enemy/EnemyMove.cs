@@ -10,6 +10,7 @@ public class EnemyMove : MonoBehaviour
     private float rand;
     public float speed;
     public static float epsilon = 0.1f;
+    public bool dead = false;
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -30,42 +31,57 @@ public class EnemyMove : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        if (Time.fixedTime % rand <= 1)
+        if (!dead)
         {
-            rand = UnityEngine.Random.Range(2, 10);
-            moving = !moving;
-        }
-        if (moving)
-        {
-            Vector2 v = rb.velocity;
-            v.x = 0;
-            if (rb.position.x > 0)
+            if (Time.fixedTime % rand <= 1)
             {
-                v.x -= speed;
+                rand = UnityEngine.Random.Range(2, 10);
+                moving = !moving;
+            }
+            if (moving)
+            {
+                Vector2 v = rb.velocity;
+                v.x = 0;
+                if (rb.position.x > 0)
+                {
+                    v.x -= speed;
+                }
+                else
+                {
+                    v.x += speed;
+                }
+                rb.velocity = v;
+            }
+
+            if (Math.Abs(rb.velocity.x - 0) < epsilon)
+            {
+                animator.SetFloat("xVelocity", 0);
             }
             else
             {
-                v.x += speed;
+                animator.SetFloat("xVelocity", 1);
             }
-            rb.velocity = v;
+            if (rb.velocity.x > epsilon)
+            {
+                spriteRenderer.flipX = false;
+            }
+            else if (rb.velocity.x < -epsilon)
+            {
+                spriteRenderer.flipX = true;
+            }
         }
 
-        if (Math.Abs(rb.velocity.x - 0) < epsilon)
-        {
-            animator.SetFloat("xVelocity", 0);
-        } else
-        {
-            animator.SetFloat("xVelocity", 1);
-        }
-        if (rb.velocity.x > epsilon)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (rb.velocity.x < -epsilon)
-        {
-            spriteRenderer.flipX = true;
-        }
+    }
 
+    public void Kill()
+    {
+        Vector2 v = new Vector2();
+        v.y = 10 + UnityEngine.Random.Range(-3.0f, 3.0f);
+        v.x = UnityEngine.Random.Range(-4.0f, 4.0f);
+        rb.velocity = v;
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.angularVelocity = UnityEngine.Random.Range(-300.0f, 300.0f);
+        dead = true;
     }
 
     public float GetRand()

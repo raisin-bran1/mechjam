@@ -196,6 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   health: 10
+  dead: 0
+  energyGiven: 2
 --- !u!114 &943894159805666678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,3 +212,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1412914903614219836}
   speed: 5
+  dead: 0
