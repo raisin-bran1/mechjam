@@ -12,6 +12,7 @@ public class Worldbuilder : MonoBehaviour
     public GameObject sheep;
     public GameObject bigSheep;
     public GameObject flyingSheep;
+    public GameObject astralSheep;
 
     // Start is called before the first frame update
     void Start()
@@ -51,10 +52,11 @@ public class Worldbuilder : MonoBehaviour
 
     public void spawnSheep(float x)
     {
-        sheep.GetComponent<EnemyMove>().speed = Random.Range(2,4);
-        Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
-        Instantiate(bigSheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
-        flyingSheep.GetComponent<EnemyMove>().speed = Random.Range(3, 5);
-        Instantiate(flyingSheep, new Vector3(x, 0, 0), Quaternion.identity);
+        //sheep.GetComponent<EnemyMove>().speed = Random.Range(2,4);
+        //Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
+        //Instantiate(bigSheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
+        //flyingSheep.GetComponent<EnemyMove>().speed = Random.Range(3, 5);
+        //Instantiate(flyingSheep, new Vector3(x, 0, 0), Quaternion.identity);
+        Instantiate(astralSheep, new Vector3(x, 0, 0), Quaternion.identity);
     }
 }

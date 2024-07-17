@@ -9,7 +9,7 @@ public class EnemyMove : MonoBehaviour
     bool moving = true;
     private float rand;
     public float speed;
-    private static float epsilon = 0.1f;
+    public static float epsilon = 0.1f;
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -66,6 +66,41 @@ public class EnemyMove : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
+    }
+
+    public float GetRand()
+    {
+        return rand;
+    }
+
+    public void SetRand(float r)
+    {
+        rand = r;
+    }
+
+    public void InvertMove()
+    {
+        moving = !moving;
+    }
+
+    public bool IsMoving()
+    {
+        return moving;
+    }
+
+    public void SetFloat(string name, float value)
+    {
+        animator.SetFloat(name, value);
+    }
+
+    public void SetBool(string name, bool value)
+    {
+        animator.SetBool(name, value);
+    }
+
+    public void SetFlipX(bool flipX)
+    {
+        spriteRenderer.flipX = flipX;
     }
 
 }

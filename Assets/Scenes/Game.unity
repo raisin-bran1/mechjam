@@ -1152,6 +1152,7 @@ MonoBehaviour:
   sheep: {fileID: 6670954835941540000, guid: e049606cd688a7f4a979d7e93282da30, type: 3}
   bigSheep: {fileID: 8196542108055593352, guid: 026f6019d3e4d7544bbdb02358dab1bc, type: 3}
   flyingSheep: {fileID: 863059783829112173, guid: 6a982726d66f0ba42a73c31b5c44efba, type: 3}
+  astralSheep: {fileID: 1422353146362477969, guid: 600983e4f449381449bb4e1667c570b8, type: 3}
 --- !u!1 &1980834247 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2467937108112835373, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
