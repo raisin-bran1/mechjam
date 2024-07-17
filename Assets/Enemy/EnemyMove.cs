@@ -15,7 +15,7 @@ public class EnemyMove : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         rand = UnityEngine.Random.Range(2, 10);
         animator = gameObject.GetComponent<Animator>();
@@ -23,12 +23,12 @@ public class EnemyMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
 
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         if (Time.fixedTime % rand <= 1)
         {

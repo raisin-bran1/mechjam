@@ -8,6 +8,9 @@ public class Projectile : MonoBehaviour
     public float speed = 20, damage = 5;
     public Rigidbody2D rb;
     private Camera cam;
+    public GameObject explosion;
+    private Collider2D[] collisions = new Collider2D[20];
+    private bool hasCollided = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,10 +38,28 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (!hasCollided)
         {
-            // Damage enemy
-            collision.gameObject.GetComponent<EnemyCombat>().Damage(damage);
+            if (collision.gameObject.tag == "Enemy")
+            {
+                // Damage enemy
+                collision.gameObject.GetComponent<EnemyCombat>().Damage(damage);
+            }
+            //make explosion
+            GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            e.GetComponent<Animator>().Play("Explosion", -1, 0f);
+            //explosion damage
+            int cols = e.GetComponent<Collider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
+            for (int i = 0; i < cols; i++)
+            {
+                Collider2D col = collisions[i];
+                if (col.gameObject.tag == "Enemy")
+                {
+                    col.gameObject.GetComponent<EnemyCombat>().Damage(damage);
+                }
+            }
+            Destroy(e, 0.35f);
+            hasCollided = true;
         }
         Destroy(gameObject);
     }

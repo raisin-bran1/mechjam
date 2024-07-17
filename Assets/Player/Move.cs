@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float speed, jump;
     private bool grounded = true;
+    private bool ungrounded = false;
+    public GameObject ground;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (ungrounded) {
+            ungrounded = false;
+            if (gameObject.GetComponent<Collider2D>().IsTouching(ground.GetComponent<Collider2D>()))
+            {
+                grounded = true;
+            }
+        }
         Vector2 v = rb.velocity;
         if (grounded)
         {
@@ -62,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     public void UnGround()
     {
         grounded = false;
+        ungrounded = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
