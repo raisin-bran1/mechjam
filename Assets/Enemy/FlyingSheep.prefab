@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4394009711133625009}
   - component: {fileID: -4417691376991606770}
   - component: {fileID: 943894159805666678}
+  - component: {fileID: 9104896664573372144}
   m_Layer: 0
   m_Name: FlyingSheep
   m_TagString: Enemy
@@ -213,3 +214,16 @@ MonoBehaviour:
   rb: {fileID: 1412914903614219836}
   speed: 5
   dead: 0
+--- !u!114 &9104896664573372144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863059783829112173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceda495f327f4c44cb3e815fe28e94fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baa: {fileID: 8300000, guid: 13d6418b23661ce40a5a1c01c3bf647a, type: 3}
