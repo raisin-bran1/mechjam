@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyCombat : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     private bool started = false;
     public bool dead = false;
     public float energyGiven;
+    public AudioClip hurt;
 
     EnemyMove move;
     SpriteRenderer spriteRenderer;
@@ -61,6 +63,7 @@ public class EnemyCombat : MonoBehaviour
             v.y *= 2;
             collision.gameObject.GetComponent<PlayerMovement>().UnGround();
             collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
+            AudioSource.PlayClipAtPoint(hurt, transform.position, 0.5f);
         }
     }
 

@@ -193,6 +193,7 @@ MonoBehaviour:
   health: 20
   dead: 0
   energyGiven: 1
+  hurt: {fileID: 8300000, guid: d6dceeaf623853049a4a9061f4d9bc1c, type: 3}
 --- !u!95 &4156309635337331024
 Animator:
   serializedVersion: 5

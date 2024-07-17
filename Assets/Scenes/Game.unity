@@ -1706,6 +1706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionObject: {fileID: 3817194069229057385, guid: 8eedad62411684e47bfdde04435f49c4, type: 3}
   transitionObject1: {fileID: 3817194069229057385, guid: 9e2153e2f3c301947a883f5e62576235, type: 3}
+  click: {fileID: 8300000, guid: 1c7d8dced07db8f4cbe5571dce322474, type: 3}
 --- !u!4 &1438342253
 Transform:
   m_ObjectHideFlags: 0

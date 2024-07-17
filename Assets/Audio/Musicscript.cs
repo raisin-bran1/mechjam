@@ -17,7 +17,7 @@ public class Musicscript : MonoBehaviour
     {
         if (Time.timeScale == 0)
         {
-            music.volume = 0.005f;
+            music.volume = 0.01f;
         } else
         {
             music.volume = 0.02f;

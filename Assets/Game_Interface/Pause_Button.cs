@@ -32,6 +32,11 @@ public class Pause_Button : MonoBehaviour
             GetComponent<Image>().sprite = pause;
             blackscreen.color = new Color(0, 0, 0, 0);
         }
+        GameObject laser = GameObject.FindWithTag("Laser");
+        if (laser != null)
+        {
+            Destroy(laser);
+        }
     }
 
     public void NormalPause()
