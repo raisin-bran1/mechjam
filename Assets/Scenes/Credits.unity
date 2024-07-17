@@ -508,10 +508,11 @@ MonoBehaviour:
   m_text: 'Programmers: Brian, Alex
 
 
-    Art: Bryan
+    Art and animation: Bryan
 
 
-    Music: Alex, Bach'
+    Music: Alex,
+    Bach'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
   m_sharedMaterial: {fileID: 244870009184614256, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
@@ -630,7 +631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7781006128456902151, guid: 39d16f1bb4bcd1d42ad0d503a189df33, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 800
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 7781006128456902151, guid: 39d16f1bb4bcd1d42ad0d503a189df33, type: 3}
       propertyPath: m_SizeDelta.y
