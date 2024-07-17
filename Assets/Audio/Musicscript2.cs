@@ -22,7 +22,7 @@ public class Musicscript2 : MonoBehaviour
             music.volume = 0;
         } else
         {
-            music.volume = 1;
+            music.volume = 0.05f;
         }
     }
 }

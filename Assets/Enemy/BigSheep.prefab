@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4244664267165527568}
   - component: {fileID: 8315106517038561934}
   - component: {fileID: 240632973211857083}
+  - component: {fileID: 6472218381026046979}
   m_Layer: 0
   m_Name: BigSheep
   m_TagString: Enemy
@@ -177,6 +178,8 @@ MonoBehaviour:
   health: 50
   dead: 0
   energyGiven: 2
+  hurt: {fileID: 8300000, guid: d6dceeaf623853049a4a9061f4d9bc1c, type: 3}
+  pop: {fileID: 8300000, guid: 9605c4fc4fc2ff849af1ef85deb3ad88, type: 3}
 --- !u!114 &8315106517038561934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +216,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6472218381026046979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196542108055593352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceda495f327f4c44cb3e815fe28e94fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baa: {fileID: 8300000, guid: 13d6418b23661ce40a5a1c01c3bf647a, type: 3}

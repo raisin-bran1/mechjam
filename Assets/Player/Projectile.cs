@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     public GameObject explosion;
     private Collider2D[] collisions = new Collider2D[20];
     private bool hasCollided = false;
+    [SerializeField] AudioClip explode;
 
     GameObject player;
     Combat combat;
@@ -54,6 +55,7 @@ public class Projectile : MonoBehaviour
             //make explosion
             GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             e.GetComponent<Animator>().Play("Explosion", -1, 0f);
+            AudioSource.PlayClipAtPoint(explode, transform.position, 1);
             //explosion damage
             int cols = e.GetComponent<Collider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
             for (int i = 0; i < cols; i++)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyCombat : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     private bool started = false;
     public bool dead = false;
     public float energyGiven;
+    public AudioClip hurt, pop;
 
     Rigidbody2D rb;
     EnemyMove move;
@@ -41,6 +43,7 @@ public class EnemyCombat : MonoBehaviour
         spriteRenderer.color = Color.white;
         spriteRenderer.sortingLayerName = "Super Foreground";
         gameObject.layer = 6;
+        AudioSource.PlayClipAtPoint(pop, transform.position, 1);
     }
 
     private void UpdateDamageColor()
@@ -67,6 +70,8 @@ public class EnemyCombat : MonoBehaviour
             v.y = Math.Max(v.y + 5, 0);
             v *= 10;
             rb.velocity = v;
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
+            AudioSource.PlayClipAtPoint(hurt, transform.position, 0.5f);
         }
     }
 
