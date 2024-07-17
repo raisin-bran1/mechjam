@@ -200,6 +200,7 @@ MonoBehaviour:
   dead: 0
   energyGiven: 2
   hurt: {fileID: 8300000, guid: d6dceeaf623853049a4a9061f4d9bc1c, type: 3}
+  pop: {fileID: 8300000, guid: 9605c4fc4fc2ff849af1ef85deb3ad88, type: 3}
 --- !u!114 &943894159805666678
 MonoBehaviour:
   m_ObjectHideFlags: 0

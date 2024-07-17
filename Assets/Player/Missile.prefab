@@ -176,7 +176,7 @@ MonoBehaviour:
   damage: 5
   rb: {fileID: -8550586303931458820}
   explosion: {fileID: 860520046024736187, guid: bb34265de9884324d839f86978609b35, type: 3}
-  explode: {fileID: 8300000, guid: f4981f245d6b5f9449188b3199f363f0, type: 3}
+  explode: {fileID: 8300000, guid: ee05606d7bcd5ef4fb4248e1b597a5bc, type: 3}
 --- !u!95 &4769929112838513504
 Animator:
   serializedVersion: 5

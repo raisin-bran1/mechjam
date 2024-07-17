@@ -12,7 +12,7 @@ public class EnemyCombat : MonoBehaviour
     private bool started = false;
     public bool dead = false;
     public float energyGiven;
-    public AudioClip hurt;
+    public AudioClip hurt, pop;
 
     EnemyMove move;
     SpriteRenderer spriteRenderer;
@@ -41,6 +41,7 @@ public class EnemyCombat : MonoBehaviour
         spriteRenderer.color = Color.white;
         spriteRenderer.sortingLayerName = "Super Foreground";
         gameObject.layer = 6;
+        AudioSource.PlayClipAtPoint(pop, transform.position, 1);
     }
 
     private void UpdateDamageColor()
