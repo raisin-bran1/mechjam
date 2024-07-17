@@ -52,7 +52,7 @@ public class EnemyMove : MonoBehaviour
 
         if (Math.Abs(rb.velocity.x - 0) < epsilon)
         {
-            animator.SetFloat("xVelocity", -1);
+            animator.SetFloat("xVelocity", 0);
         } else
         {
             animator.SetFloat("xVelocity", 1);
