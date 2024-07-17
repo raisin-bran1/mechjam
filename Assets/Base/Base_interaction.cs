@@ -44,6 +44,7 @@ public class Base_interaction : MonoBehaviour
     public float GetMaxHealth()
     {
         return maxHealth;
+    }
     IEnumerator GameOver()
     {
         GetComponent<SpriteRenderer>().enabled = false;
