@@ -78,6 +78,7 @@ public class Worldbuilder : MonoBehaviour
         } else if (r <= 2.0f)
         {
             flyingSheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(3, 5);
+            flyingSheep.GetComponent<FlyingSheepMovement>().height = UnityEngine.Random.Range(3, 7);
             Instantiate(flyingSheep, new Vector3(x, 0, 0), Quaternion.identity);
         } else if (r <= 3.0f)
         {

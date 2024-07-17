@@ -18,7 +18,7 @@ public class Beam : MonoBehaviour
     {
         cam = Camera.main;
         UpdateAngleInstant();
-
+        
         player = GameObject.Find("Player");
         combat = player.GetComponent<Combat>();
     }
@@ -26,9 +26,25 @@ public class Beam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdatePosition();
         UpdateAngle();
         UpdateDamage();
-        transform.position = GameObject.FindWithTag("Player").transform.position;
+    }
+
+    void UpdatePosition()
+    {
+        transform.position = player.transform.position;
+        Vector3 pos = player.transform.position;
+        pos.y -= 0.5f;
+        if (combat.GetFlip() == 1)
+        {
+            pos.x += 5.4f;
+        }
+        else
+        {
+            pos.x -= 5.4f;
+        }
+        transform.position = pos;
     }
 
     void UpdateAngleInstant()
@@ -64,6 +80,32 @@ public class Beam : MonoBehaviour
         } else
         {
             angle = Math.Min(angle, angle2 + rotationSpeed * Time.deltaTime);
+        }
+        angle = angle % 360;
+        if (combat.GetFlip() == 1)
+        {
+            if (angle <= 180)
+            {
+                angle += 360;
+            }
+            if (angle < 300)
+            {
+                angle = 300;
+            }
+            if (angle > 420)
+            {
+                angle = 420;
+            }
+        } else
+        {
+            if (angle < 120)
+            {
+                angle = 120;
+            }
+            if (angle > 240)
+            {
+                angle = 240;
+            }
         }
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
     }

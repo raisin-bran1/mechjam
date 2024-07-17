@@ -17,13 +17,19 @@ public class Combat : MonoBehaviour
     private float invincibility = 0;
     private static float damageTime = 0.5f;
     private float damageGradient;
-    private bool lasering;
+    private bool beaming = false;
+    private bool lasering = false;
+    private bool recovering = false;
     private float speed;
     private float energy = 0;
     private float maxEnergy = startingMaxEnergy;
 
+    public PlayerMovement move;
+
+    Animator animator;
     PlayerMovement movement;
     SpriteRenderer spriteRenderer;
+    BoxCollider2D collider;
 
     // Start is called before the first frame update
     void Start()
@@ -31,17 +37,13 @@ public class Combat : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         movement = gameObject.GetComponent<PlayerMovement>();
         speed = movement.speed;
+        animator = gameObject.GetComponent<Animator>();
+        collider = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lasering && cooldown <= 0)
-        {
-            lasering = false;
-            movement.speed = speed;
-            Destroy(GameObject.FindWithTag("Laser"));
-        }
 
         if (damageGradient > 0)
         {
@@ -49,10 +51,10 @@ public class Combat : MonoBehaviour
         }
         cooldown -= Time.deltaTime;
         invincibility = Math.Max(invincibility - Time.deltaTime, 0);
-        if (Input.GetKeyDown(KeyCode.Alpha1) && cooldown <= 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && cooldown <= 0 && !recovering && !lasering)
         {
             weapon = Weapon.melee;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2) && cooldown <= 0)
+        } else if (Input.GetKeyDown(KeyCode.Alpha2) && cooldown <= 0 && !recovering && !lasering)
         {
             weapon = Weapon.ranged;
         } else if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -71,15 +73,56 @@ public class Combat : MonoBehaviour
                 }
             } else if (weapon == Weapon.laser)
             {
-                if (cooldown <= 0 && !lasering)
+                if (!lasering && cooldown <= 0)
                 {
                     lasering = true;
+                    animator.SetBool("lasering", true);
                     movement.speed = 0;
-                    SpawnLaser();
-                    cooldown = 3.0f;
+                    cooldown = 1.7f;
+                } else
+                {
+                    if (cooldown <= 0 && !beaming)
+                    {
+                        SpawnLaser();
+                        beaming = true;
+                        animator.SetBool("beaming", true);
+                    }
                 }
             }
+        } else
+        {
+            if (lasering && cooldown <= 0)
+            {
+                lasering = false;
+                beaming = false;
+                animator.SetBool("lasering", false);
+                animator.SetBool("beaming", false);
+                recovering = true;
+                cooldown = 0.8f;
+                Destroy(GameObject.FindWithTag("Laser"));
+                Vector2 s = collider.size;
+                s.x = 0.95f;
+                collider.size = s;
+                Vector2 o = collider.offset;
+                o.x = 0;
+                collider.offset = o;
+            }
         }
+        if (recovering && cooldown <= 0)
+        {
+            recovering = false;
+            movement.speed = speed;
+        }
+    }
+
+    public float GetFlip()
+    {
+        return move.GetFlip();
+    }
+
+    public void SetFlip(float flip)
+    {
+        move.SetFlip(flip);
     }
 
     private void UpdateDamageColor()
@@ -98,19 +141,38 @@ public class Combat : MonoBehaviour
 
     public void SpawnLaser()
     {
-        Instantiate(laser, transform.position, Quaternion.identity);
+        Vector3 pos = gameObject.transform.position;
+        pos.y -= 0.5f;
+        Vector2 o = collider.offset;
+        if (GetFlip() == 1)
+        {
+            o.x = 0.7f;
+            pos.x += 5.4f;
+        }
+        else
+        {
+            o.x = -0.7f;
+            pos.x -= 5.4f;
+        }
+        collider.offset = o;
+        Instantiate(laser, pos, Quaternion.identity);
+        Vector2 s = collider.size;
+        s.x = 2.0f;
+        collider.size = s;
     }
 
     public int Damage(float d)
     {
-        health -= d;
-        invincibility = damageTime;
-        damageGradient = damageTime;
-        spriteRenderer.color = Color.red;
-        if (health <= 0)
-        {
-            Debug.Log("You lose!");
-            return -1;
+        if (invincibility == 0) {
+            health -= d;
+            invincibility = damageTime;
+            damageGradient = damageTime;
+            spriteRenderer.color = Color.red;
+            if (health <= 0)
+            {
+                Debug.Log("You lose!");
+                return -1;
+            }
         }
         return 0;
     }

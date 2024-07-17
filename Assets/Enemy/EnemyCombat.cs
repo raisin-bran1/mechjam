@@ -12,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     public bool dead = false;
     public float energyGiven;
 
+    Rigidbody2D rb;
     EnemyMove move;
     SpriteRenderer spriteRenderer;
 
@@ -21,6 +22,7 @@ public class EnemyCombat : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         started = true;
         move = gameObject.GetComponent<EnemyMove>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -56,11 +58,15 @@ public class EnemyCombat : MonoBehaviour
         {
             collision.gameObject.GetComponent<Combat>().Damage(damage);
             Vector2 v = collision.gameObject.transform.position - gameObject.transform.position;
-            v.Normalize();
+            /*v.Normalize();
             v *= 10;
             v.y *= 2;
             collision.gameObject.GetComponent<PlayerMovement>().UnGround();
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;*/
+            v = -v;
+            v.y = Math.Max(v.y + 5, 0);
+            v *= 10;
+            rb.velocity = v;
         }
     }
 

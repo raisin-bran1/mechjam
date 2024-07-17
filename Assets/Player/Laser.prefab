@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.0579, y: -4.66, z: 0.01294665}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.06, y: 2.039604, z: 2.039604}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +122,7 @@ BoxCollider2D:
   m_Offset: {x: 7.749364, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
+    pivot: {x: 0.03, y: 0.5}
     oldSize: {x: 16, y: 1}
     newSize: {x: 51.738945, y: 0.47999996}
     adaptiveTilingThreshold: 0.5
@@ -146,7 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   rotationSpeed: 90
-  combat: {fileID: 1574790678312741214, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
 --- !u!95 &141993081849807219
 Animator:
   serializedVersion: 5

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FlyingSheepMovement : EnemyMove
 {
+    public float height;
 
     // Start is called before the first frame update
     public override void Start()
@@ -22,7 +23,7 @@ public class FlyingSheepMovement : EnemyMove
     {
 
         base.FixedUpdate();
-        if (!dead && rb.transform.position.y < 0 && Math.Abs(rb.transform.position.x) > 5)
+        if (!dead && rb.transform.position.y < height && Math.Abs(rb.transform.position.x) > 5)
         {
             Vector2 v = rb.velocity;
             v.y = 5;
