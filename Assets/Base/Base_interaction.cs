@@ -7,20 +7,22 @@ public class Base_interaction : MonoBehaviour
     public const float startingMaxHealth = 100;
     private float health = startingMaxHealth;
     private float maxHealth = startingMaxHealth;
+    private GameControl t;
+    private bool gameover = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        t = GameObject.FindWithTag("GameController").GetComponent<GameControl>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        if (health <= 0 && !gameover)
         {
-            Debug.Log("You Lose");
-            Destroy(gameObject);
+            gameover = true;
+            StartCoroutine(GameOver());
         }
     }
 
@@ -42,5 +44,10 @@ public class Base_interaction : MonoBehaviour
     public float GetMaxHealth()
     {
         return maxHealth;
+    IEnumerator GameOver()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(2);
+        t.LoadScene("Deathscreen");
     }
 }
