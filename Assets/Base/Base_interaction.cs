@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Base_interaction : MonoBehaviour
 {
-<<<<<<< Updated upstream
     public const float startingMaxHealth = 100;
     private float health = startingMaxHealth;
     private float maxHealth = startingMaxHealth;
