@@ -20,6 +20,7 @@ public class Credits_script : MonoBehaviour
 
     public void OpenTitle()
     {
+        Time.timeScale = 1;
         t.LoadScene("Title");
     }
 }

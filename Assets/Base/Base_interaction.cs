@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Base_interaction : MonoBehaviour
 {
-    public const float startingMaxHealth = 100;
+    public const float startingMaxHealth = 1;
     private float health = startingMaxHealth;
     private float maxHealth = startingMaxHealth;
     private GameControl t;
     private bool gameover = false;
+    public GameObject deathscreen;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,10 @@ public class Base_interaction : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(2);
-        t.LoadScene("Deathscreen");
+        Pause_Button pausebutton = GameObject.FindWithTag("Pause").GetComponent<Pause_Button>();
+        pausebutton.TogglePause(0.95f);
+        Time.timeScale = 1;
+        pausebutton.Deactivate();
+        Instantiate(deathscreen);
     }
 }
