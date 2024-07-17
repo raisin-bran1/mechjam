@@ -826,14 +826,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Alex
+  m_text: 'Programmer: Brian, Alex
 
-    Brian
 
-    Bryan'
+    Art: Bryan
+
+
+    Music: Alex'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 576287a515a47f6428587fb18f9bcdbd, type: 2}
-  m_sharedMaterial: {fileID: -268090069823905357, guid: 576287a515a47f6428587fb18f9bcdbd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
+  m_sharedMaterial: {fileID: 244870009184614256, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -857,14 +859,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -893,7 +895,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -445.0868, y: -519.26807, z: -334.47852, w: 3.371704}
+  m_margin: {x: -930.6361, y: -569.84607, z: -941.4153, w: -134.87494}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
