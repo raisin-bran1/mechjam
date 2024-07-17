@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Worldbuilder : MonoBehaviour
 {
-    private float spawn_time = 0f, spawn_length = 3, spawn_interval;
+    private float spawn_time = 0f, spawn_length = 100, spawn_interval;
     private Tile tile;
     private Tilemap terrain;
     public GameObject player;

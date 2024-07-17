@@ -39,7 +39,7 @@ public class AstralSheepMovement : EnemyMove
                 v.x += speed;
             }
             rb.velocity = v;
-        } else if (Time.fixedTime > t - 0.3f)
+        } else if (Time.fixedTime > t - 1)
         {
             base.SetBool("jumping", true);
         }
