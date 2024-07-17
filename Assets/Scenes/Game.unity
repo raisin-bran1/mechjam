@@ -1148,6 +1148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d8e32ab90015a42bbac12377685da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startRate: 1
+  rateAcc: 0.5
+  rateChance: 0.3
+  diffIncrement: 0.1
+  timeUnit: 5
   player: {fileID: 4449258258939737605, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
   sheep: {fileID: 6670954835941540000, guid: e049606cd688a7f4a979d7e93282da30, type: 3}
   bigSheep: {fileID: 8196542108055593352, guid: 026f6019d3e4d7544bbdb02358dab1bc, type: 3}
@@ -1300,15 +1305,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1316,7 +1321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_LocalPosition.z
