@@ -50,7 +50,7 @@ public class EnemyMove : MonoBehaviour
             rb.velocity = v;
         }
 
-        if (rb.velocity.x - 0 < epsilon)
+        if (Math.Abs(rb.velocity.x - 0) < epsilon)
         {
             animator.SetFloat("xVelocity", -1);
         } else

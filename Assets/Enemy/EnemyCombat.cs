@@ -46,7 +46,7 @@ public class EnemyCombat : MonoBehaviour
             v *= 10;
             v.y *= 2;
             Debug.Log(v.x + " " + v.y);
-            //collision.gameObject.GetComponent<PlayerMovement>().UnGround();
+            collision.gameObject.GetComponent<PlayerMovement>().UnGround();
             collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
         }
     }

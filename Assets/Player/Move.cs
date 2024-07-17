@@ -11,11 +11,16 @@ public class PlayerMovement : MonoBehaviour
     private bool grounded = true;
     private bool ungrounded = false;
     public GameObject ground;
+    private static float epsilon = 0.02f;
+
+    Animator animator;
+    SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = gameObject.GetComponent<Animator>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -66,6 +71,24 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         rb.velocity = v;
+
+        if (Math.Abs(rb.velocity.x - 0) < epsilon)
+        {
+            animator.SetFloat("xVelocity", -1);
+        }
+        else
+        {
+            animator.SetFloat("xVelocity", 1);
+        }
+        if (rb.velocity.x > epsilon)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.velocity.x < -epsilon)
+        {
+            spriteRenderer.flipX = true;
+        }
+
     }
 
     public void UnGround()
