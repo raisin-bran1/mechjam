@@ -8,6 +8,7 @@ public class EnemyCombat : MonoBehaviour
     public float damage, health;
     private float damageGradient = 0;
     private static float damageTime = 0.5f;
+    private bool started = false;
 
     SpriteRenderer spriteRenderer;
 
@@ -15,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
     public virtual void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        started = true;
     }
 
     // Update is called once per frame
@@ -51,13 +53,17 @@ public class EnemyCombat : MonoBehaviour
 
     public int Damage(float damage)
     {
-        health -= damage;
-        spriteRenderer.color = Color.red;
-        damageGradient = damageTime;
-        if (health <= 0)
+        if (started)
         {
-            Destroy(gameObject);
-            return -1;
+            health -= damage;
+            spriteRenderer.color = Color.red;
+            damageGradient = damageTime;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+                return -1;
+            }
+            return 0;
         }
         return 0;
     }
