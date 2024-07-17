@@ -832,7 +832,7 @@ MonoBehaviour:
     Art: Bryan
 
 
-    Music: Alex'
+    Music: Alex, Bach'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
   m_sharedMaterial: {fileID: 244870009184614256, guid: 89d898271d26b2e40bf94bb81697ea35, type: 2}
