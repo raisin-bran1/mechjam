@@ -1295,6 +1295,10 @@ PrefabInstance:
       propertyPath: hpDisplay
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2046948032931928356, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
+      propertyPath: ground
+      value: 
+      objectReference: {fileID: 76111579}
     - target: {fileID: 2498794219827853588, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
       propertyPath: m_Mass
       value: 1
