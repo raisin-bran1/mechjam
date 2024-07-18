@@ -9,7 +9,7 @@ public class Combat : MonoBehaviour
     private float cooldown = 0.0f;
     public float damage;
     public const float startingMaxEnergy = 10;
-    public const float startingMaxHealth = 1;
+    public const float startingMaxHealth = 10;
     private float maxHealth = startingMaxHealth;
     public float health = startingMaxHealth;
     private float invincibility = 0;
