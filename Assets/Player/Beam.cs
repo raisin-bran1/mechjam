@@ -118,7 +118,7 @@ public class Beam : MonoBehaviour
             Collider2D collision = collisions[i];
             if (collision.gameObject.tag == "Enemy")
             {
-                combat.AddEnergy(collision.gameObject.GetComponent<EnemyCombat>().Damage(damage * Time.deltaTime));
+                combat.AddEnergy(collision.gameObject.GetComponent<EnemyCombat>().Damage(3 * damage * Time.deltaTime));
             }
         }
     }

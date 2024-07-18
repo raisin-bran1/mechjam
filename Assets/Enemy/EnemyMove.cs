@@ -11,6 +11,7 @@ public class EnemyMove : MonoBehaviour
     public float speed;
     public static float epsilon = 0.1f;
     public bool dead = false;
+    private float ragdoll;
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -26,12 +27,19 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-
+        if (ragdoll > 0) {
+            ragdoll -= Time.deltaTime;
+            if (ragdoll <= 0)
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb.transform.rotation = Quaternion.identity;
+            }
+        }
     }
 
     public virtual void FixedUpdate()
     {
-        if (!dead)
+        if (!dead && ragdoll <= 0)
         {
             if (Time.fixedTime % rand <= 1)
             {
@@ -73,14 +81,25 @@ public class EnemyMove : MonoBehaviour
 
     }
 
+    public void Ragdoll(float dur)
+    {
+        ragdoll += dur;
+        rb.constraints = RigidbodyConstraints2D.None;
+    }
+
+    public float GetRagdoll()
+    {
+        return ragdoll;
+    }
+
     public void Kill()
     {
         Vector2 v = new Vector2();
-        v.y = 10 + UnityEngine.Random.Range(-3.0f, 3.0f);
-        v.x = UnityEngine.Random.Range(-4.0f, 4.0f);
+        v.y = 5 + UnityEngine.Random.Range(-1.0f, 1.0f);
+        v.x = UnityEngine.Random.Range(-3.0f, 3.0f);
         rb.velocity = v;
         rb.constraints = RigidbodyConstraints2D.None;
-        rb.angularVelocity = UnityEngine.Random.Range(-300.0f, 300.0f);
+        rb.angularVelocity = UnityEngine.Random.Range(-800.0f, 800.0f);
         dead = true;
     }
 

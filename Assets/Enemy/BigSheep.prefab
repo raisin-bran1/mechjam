@@ -180,6 +180,7 @@ MonoBehaviour:
   energyGiven: 2
   hurt: {fileID: 8300000, guid: d6dceeaf623853049a4a9061f4d9bc1c, type: 3}
   pop: {fileID: 8300000, guid: 9605c4fc4fc2ff849af1ef85deb3ad88, type: 3}
+  player: {fileID: 4449258258939737605, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
 --- !u!114 &8315106517038561934
 MonoBehaviour:
   m_ObjectHideFlags: 0

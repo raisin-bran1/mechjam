@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
-    private enum Weapon {melee, ranged, laser}
-    private Weapon weapon = Weapon.melee;
     public GameObject missile, laser;
     private float cooldown = 0.0f;
     public float damage;
@@ -51,45 +49,38 @@ public class Combat : MonoBehaviour
         }
         cooldown -= Time.deltaTime;
         invincibility = Math.Max(invincibility - Time.deltaTime, 0);
-        if (Input.GetKeyDown(KeyCode.Alpha1) && cooldown <= 0 && !recovering && !lasering)
-        {
-            weapon = Weapon.melee;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2) && cooldown <= 0 && !recovering && !lasering)
-        {
-            weapon = Weapon.ranged;
-        } else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            weapon = Weapon.laser;
-        }
 
         if (Input.GetMouseButton(0))
         {
-            if (weapon == Weapon.ranged)
+            if (!lasering && !beaming && !recovering)
             {
                 if (cooldown <= 0)
                 {
                     SpawnMissile();
                     cooldown = 0.5f;
                 }
-            } else if (weapon == Weapon.laser)
+            }
+        }
+        if (Input.GetMouseButton(1))
+        {
+            if (!lasering && cooldown <= 0)
             {
-                if (!lasering && cooldown <= 0)
+                lasering = true;
+                animator.SetBool("lasering", true);
+                movement.speed = 0;
+                cooldown = 0.85f;
+            }
+            else
+            {
+                if (cooldown <= 0 && !beaming)
                 {
-                    lasering = true;
-                    animator.SetBool("lasering", true);
-                    movement.speed = 0;
-                    cooldown = 1.7f;
-                } else
-                {
-                    if (cooldown <= 0 && !beaming)
-                    {
-                        SpawnLaser();
-                        beaming = true;
-                        animator.SetBool("beaming", true);
-                    }
+                    SpawnLaser();
+                    beaming = true;
+                    animator.SetBool("beaming", true);
                 }
             }
-        } else
+        }
+        else
         {
             if (lasering && cooldown <= 0)
             {
