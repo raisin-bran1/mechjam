@@ -8,7 +8,7 @@ public class Combat : MonoBehaviour
     public GameObject missile, laser;
     private float cooldown = 0.0f;
     public float damage;
-    public const float startingMaxEnergy = 10;
+    public const float startingMaxEnergy = 5;
     public const float startingMaxHealth = 10;
     private float maxHealth = startingMaxHealth;
     public float health = startingMaxHealth;
@@ -23,8 +23,10 @@ public class Combat : MonoBehaviour
     private float maxEnergy = startingMaxEnergy;
     public GameObject deathscreen;
     public bool dead = false;
+    private int level = 0;
 
     public PlayerMovement move;
+    public Upgrade upgrade;
 
     Animator animator;
     PlayerMovement movement;
@@ -53,7 +55,7 @@ public class Combat : MonoBehaviour
         cooldown -= Time.deltaTime;
         invincibility = Math.Max(invincibility - Time.deltaTime, 0);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && energy >= 1)
         {
             if (!lasering && !beaming && !recovering)
             {
@@ -61,10 +63,11 @@ public class Combat : MonoBehaviour
                 {
                     SpawnMissile();
                     cooldown = 0.5f;
+                    energy -= 1;
                 }
             }
         }
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && energy > 0)
         {
             if (!lasering && cooldown <= 0)
             {
@@ -80,6 +83,10 @@ public class Combat : MonoBehaviour
                     SpawnLaser();
                     beaming = true;
                     animator.SetBool("beaming", true);
+                } else if (beaming)
+                {
+                    energy -= Time.deltaTime * 5;
+                    energy = Math.Max(energy, 0);
                 }
             }
         }
@@ -112,6 +119,18 @@ public class Combat : MonoBehaviour
         {
             dead = true;
             StartCoroutine(GameOver());
+        if (Input.GetKeyDown(KeyCode.P) && energy == maxEnergy)
+        {
+            energy = 0;
+            level++;
+            maxHealth += 5;
+            health += 5;
+            if (level % 3 == 0)
+            {
+                upgrade.AdvanceStage();
+            }
+            damage += 1f;
+            maxEnergy += 5;
         }
     }
 
@@ -211,4 +230,9 @@ public class Combat : MonoBehaviour
         pausebutton.Deactivate();
         Instantiate(deathscreen);
     }
+    public int GetLevel()
+    {
+        return level;
+    }
+
 }
