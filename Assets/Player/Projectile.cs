@@ -56,6 +56,7 @@ public class Projectile : MonoBehaviour
             GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
             e.GetComponent<Animator>().Play("Explosion", -1, 0f);
             AudioSource.PlayClipAtPoint(explode, transform.position, 1);
+            GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
             //explosion damage
             int cols = e.GetComponent<Collider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
             for (int i = 0; i < cols; i++)

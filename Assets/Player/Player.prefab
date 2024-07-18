@@ -1226,6 +1226,8 @@ MonoBehaviour:
   jump: 10
   jet: 70
   maxFuel: 1.5
+  stomp: {fileID: 8300000, guid: 08c9bcb4829976c40985fee058c71266, type: 3}
+  longstomp: {fileID: 8300000, guid: a455934566f13b44c95b8d5fd9ca197f, type: 3}
 --- !u!61 &3965190430890094088
 BoxCollider2D:
   m_ObjectHideFlags: 0

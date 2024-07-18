@@ -17,10 +17,13 @@ public class PlayerMovement : MonoBehaviour
 
     GameObject trigger;
 
+    private float step = 0;
+    public AudioClip stomp, longstomp;
+    
     GameObject sprite;
     Animator animator;
     SpriteRenderer spriteRenderer;
-    BoxCollider2D collider;
+    BoxCollider2D col;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         sprite = gameObject.transform.GetChild(0).gameObject;
-        collider = gameObject.GetComponent<BoxCollider2D>();
+        col = gameObject.GetComponent<BoxCollider2D>();
         fuel = maxFuel;
         trigger = GameObject.Find("PlayerTrigger");
     }
@@ -42,10 +45,18 @@ public class PlayerMovement : MonoBehaviour
             v.y = jump;
             rb.velocity = v;
         }
+
+        step += Time.deltaTime;
+        if (Math.Abs(rb.velocity.x) > 0 && step > 0.75 && grounded)
+        {
+            step = 0;
+            GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.05f;
+            AudioSource.PlayClipAtPoint(stomp, transform.position, 0.25f);
+        }
     }
 
     void FixedUpdate()
-    {
+    { 
         if (ungrounded > 0) {
             if (ungrounded == 1)
             {
@@ -119,18 +130,18 @@ public class PlayerMovement : MonoBehaviour
             Vector3 scale = sprite.transform.localScale;
             scale.x = 1;
             sprite.transform.localScale = scale;
-            Vector2 off = collider.offset;
+            Vector2 off = col.offset;
             off.x = Math.Abs(off.x);
-            collider.offset = off;
+            col.offset = off;
         }
         else if (rb.velocity.x < -epsilon)
         {
             Vector3 scale = sprite.transform.localScale;
             scale.x = -1;
             sprite.transform.localScale = scale;
-            Vector2 off = collider.offset;
+            Vector2 off = col.offset;
             off.x = -Math.Abs(off.x);
-            collider.offset = off;
+            col.offset = off;
         }
 
     }
@@ -188,6 +199,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
             }
+            GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
+            AudioSource.PlayClipAtPoint(stomp, transform.position, 0.35f);
         }
     }
 

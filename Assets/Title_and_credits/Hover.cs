@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class Hover : MonoBehaviour
 {
     TMP_Text text;
-    [SerializeField] AudioClip sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +27,6 @@ public class Hover : MonoBehaviour
     public void IncreaseFont()
     {
         text.fontSize = 100;
-        AudioSource.PlayClipAtPoint(sound, transform.position, 1f);
     }
 
     public void DecreaseFont()
