@@ -14,7 +14,7 @@ public class SheepSound : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         cooldown += Time.deltaTime;
         if (cooldown >= 3)

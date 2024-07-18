@@ -36,6 +36,7 @@ public class Combat : MonoBehaviour
     PlayerMovement movement;
     SpriteRenderer spriteRenderer;
     BoxCollider2D col;
+    GameControl t;
 
     // Start is called before the first frame update
     void Start()
@@ -47,11 +48,16 @@ public class Combat : MonoBehaviour
         col = gameObject.GetComponent<BoxCollider2D>();
         GetComponent<Rigidbody2D>().WakeUp();
         animator.SetFloat("health", health);
+        t = GameObject.FindWithTag("GameController").GetComponent<GameControl>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (level == 9)
+        {
+            t.LoadScene("Win");
+        }
 
         if (!dead)
         {
@@ -141,7 +147,7 @@ public class Combat : MonoBehaviour
             deathTime = Time.fixedTime;
         }
 
-        if (!dead && Input.GetKeyDown(KeyCode.P) && energy >= maxEnergy - 5)
+        if (!dead && Input.GetKeyDown(KeyCode.F) && energy >= maxEnergy - 5)
         {
             energy -= maxEnergy - 5;
             level++;
