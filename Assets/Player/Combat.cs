@@ -119,6 +119,8 @@ public class Combat : MonoBehaviour
         {
             dead = true;
             StartCoroutine(GameOver());
+        }
+
         if (Input.GetKeyDown(KeyCode.P) && energy == maxEnergy)
         {
             energy = 0;
