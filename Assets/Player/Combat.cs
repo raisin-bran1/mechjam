@@ -141,7 +141,6 @@ public class Combat : MonoBehaviour
             deathTime = Time.fixedTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && energy == maxEnergy)
         if (!dead && Input.GetKeyDown(KeyCode.P) && energy >= maxEnergy - 5)
         {
             energy -= maxEnergy - 5;
