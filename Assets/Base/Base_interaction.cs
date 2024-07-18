@@ -33,7 +33,7 @@ public class Base_interaction : MonoBehaviour
         {
             EnemyCombat ec = collision.gameObject.GetComponent<EnemyCombat>();
             health -= ec.damage;
-            ec.Kill();
+            ec.Kill(0);
         }
     }
 

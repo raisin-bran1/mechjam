@@ -23,7 +23,7 @@ public class FlyingSheepMovement : EnemyMove
     {
 
         base.FixedUpdate();
-        if (!dead && rb.transform.position.y < height && Math.Abs(rb.transform.position.x) > 5)
+        if (!dead && base.GetRagdoll() <= 0 && rb.transform.position.y < height && Math.Abs(rb.transform.position.x) > 5)
         {
             Vector2 v = rb.velocity;
             v.y = 5;

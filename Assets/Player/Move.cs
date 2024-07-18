@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     private int ungrounded = 0;
     private static float epsilon = 0.02f;
     private float fuel;
+    private Collider2D[] collisions = new Collider2D[20];
+
+    GameObject trigger;
+
     private float step = 0;
     public AudioClip stomp, longstomp;
     
@@ -29,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         sprite = gameObject.transform.GetChild(0).gameObject;
         col = gameObject.GetComponent<BoxCollider2D>();
         fuel = maxFuel;
+        trigger = GameObject.Find("PlayerTrigger");
     }
 
     // Update is called once per frame
@@ -173,6 +178,27 @@ public class PlayerMovement : MonoBehaviour
             ungrounded = 0;
             fuel = maxFuel;
             sprite.transform.rotation = Quaternion.identity;
+            int cols = trigger.GetComponent<CapsuleCollider2D>().OverlapCollider(new ContactFilter2D().NoFilter(), collisions);
+            for (int i = 0; i < cols; i++)
+            {
+                Collider2D col = collisions[i];
+                if (col.gameObject.tag == "Enemy")
+                {
+                    col.gameObject.GetComponent<EnemyCombat>().Damage(collision.relativeVelocity.magnitude);
+                    if (!col.gameObject.GetComponent<EnemyCombat>().dead)
+                    {
+                        col.gameObject.GetComponent<EnemyMove>().Ragdoll(3.0f);
+                        Vector2 v = gameObject.transform.position + new Vector3(0, -12, 0) - col.gameObject.transform.position;
+                        v = -v;
+                        v.y = Math.Max(v.y, 0);
+                        v.Normalize();
+                        v *= 20;
+                        Rigidbody2D r = col.gameObject.GetComponent<Rigidbody2D>();
+                        r.velocity += v;
+                        r.angularVelocity = UnityEngine.Random.Range(-300.0f, 300.0f);
+                    }
+                }
+            }
             GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
             AudioSource.PlayClipAtPoint(stomp, transform.position, 0.35f);
         }

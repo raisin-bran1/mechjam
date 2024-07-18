@@ -14,6 +14,9 @@ public class EnemyCombat : MonoBehaviour
     public float energyGiven;
     public AudioClip hurt, pop;
 
+    GameObject player;
+    BoxCollider2D playerCollider;
+    BoxCollider2D coll;
     Rigidbody2D rb;
     EnemyMove move;
     SpriteRenderer spriteRenderer;
@@ -25,25 +28,35 @@ public class EnemyCombat : MonoBehaviour
         started = true;
         move = gameObject.GetComponent<EnemyMove>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        coll = gameObject.GetComponent<BoxCollider2D>();
+        player = GameObject.Find("Player");
+        playerCollider = player.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (!dead && damageGradient > 0) {
+        if (damageGradient > 0) {
             UpdateDamageColor();
         }
     }
 
-    public void Kill()
+    public void FixedUpdate()
+    {
+
+    }
+
+    public void Kill(int type)
     {
         dead = true;
-        move.Kill();
-        Destroy(gameObject, 4.0f);
-        spriteRenderer.color = Color.white;
-        spriteRenderer.sortingLayerName = "Super Foreground";
-        gameObject.layer = 6;
         AudioSource.PlayClipAtPoint(pop, transform.position, 1);
+        if (type == 0)
+        {
+            move.Kill();
+            Destroy(gameObject, 4.0f);
+            spriteRenderer.sortingLayerName = "Super Foreground";
+            gameObject.layer = 6;
+        }
     }
 
     private void UpdateDamageColor()
@@ -57,21 +70,40 @@ public class EnemyCombat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!dead && collision.gameObject.tag == "Player")
+        if (!dead && collision.gameObject.tag == "Enemy" && collision.gameObject.GetComponent<EnemyMove>().GetRagdoll() > 0)
         {
-            collision.gameObject.GetComponent<Combat>().Damage(damage);
-            Vector2 v = collision.gameObject.transform.position - gameObject.transform.position;
-            /*v.Normalize();
-            v *= 10;
-            v.y *= 2;
-            collision.gameObject.GetComponent<PlayerMovement>().UnGround();
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;*/
+            move.Ragdoll(0.3f);
+            Vector2 v = collision.gameObject.transform.position + new Vector3(0, -1, 0) - gameObject.transform.position;
             v = -v;
-            v.y = Math.Max(v.y + 5, 0);
-            v *= 10;
+            v.y = Math.Max(v.y, 0);
+            v.Normalize();
+            v *= 6;
             rb.velocity = v;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;
-            AudioSource.PlayClipAtPoint(hurt, transform.position, 0.5f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (!dead && collider is BoxCollider2D && collider.gameObject.transform.parent != null && collider.gameObject.transform.parent.gameObject.tag == "Player")
+        {
+            if (player.GetComponent<Rigidbody2D>().velocity.y > -5)
+            {
+                move.Ragdoll(3.0f);
+                player.GetComponent<Combat>().Damage(damage);
+                Vector2 v = player.transform.position + new Vector3(0, -10, 0) - gameObject.transform.position;
+                /*v.Normalize();
+                v *= 10;
+                v.y *= 2;
+                collision.gameObject.GetComponent<PlayerMovement>().UnGround();
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity += v;*/
+                v = -v;
+                v.y = Math.Max(v.y, 0);
+                v.Normalize();
+                v *= 20;
+                rb.velocity += v;
+                AudioSource.PlayClipAtPoint(hurt, transform.position, 0.5f);
+            }
         }
     }
 
@@ -84,7 +116,7 @@ public class EnemyCombat : MonoBehaviour
             damageGradient = damageTime;
             if (health <= 0)
             {
-                Kill();
+                Kill(0);
                 return energyGiven;
             }
             return 0;
