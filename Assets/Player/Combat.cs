@@ -69,7 +69,7 @@ public class Combat : MonoBehaviour
             invincibility = Math.Max(invincibility - Time.deltaTime, 0);
 
 
-            if (Input.GetMouseButton(0) && energy >= 1)
+            if (Input.GetMouseButton(0) && energy >= 0.5)
             {
                 if (!lasering && !beaming && !recovering)
                 {
@@ -77,7 +77,7 @@ public class Combat : MonoBehaviour
                     {
                         SpawnMissile();
                         cooldown = 0.5f;
-                        energy -= 1;
+                        energy -= 0.5f;
                     }
                 }
             }
@@ -100,7 +100,7 @@ public class Combat : MonoBehaviour
                     }
                     else if (beaming)
                     {
-                        energy -= Time.deltaTime * 5;
+                        energy -= Time.deltaTime;
                         energy = Math.Max(energy, 0);
                     }
                 }
@@ -145,6 +145,7 @@ public class Combat : MonoBehaviour
             dead = true;
             StartCoroutine(GameOver());
             deathTime = Time.fixedTime;
+            move.speed = 0;
         }
 
         if (!dead && Input.GetKeyDown(KeyCode.F) && energy >= maxEnergy - 5)
@@ -157,7 +158,7 @@ public class Combat : MonoBehaviour
             {
                 upgrade.AdvanceStage();
             }
-            damage += 1f;
+            damage += 1;
             maxEnergy += 5;
             AudioSource.PlayClipAtPoint(ding, transform.position, 1);
         }

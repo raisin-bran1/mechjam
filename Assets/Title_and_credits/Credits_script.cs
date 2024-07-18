@@ -37,6 +37,7 @@ public class Credits_script : MonoBehaviour
         player.GetComponent<Rigidbody2D>().WakeUp();
         player.transform.position = new Vector3(0, 5, 0);
         player.GetComponent<Combat>().dead = false;
+        player.GetComponent<PlayerMovement>().speed = 8.0f;
         GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0;
     }
 }
