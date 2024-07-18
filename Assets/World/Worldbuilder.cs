@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class Worldbuilder : MonoBehaviour
 {
     private float spawnTime = 0f, spawnLength, spawnInterval;
+    private float updateTime = 0f;
     private Tile[] tiles;
     private Tilemap terrain;
     private float difficulty;
@@ -35,20 +36,22 @@ public class Worldbuilder : MonoBehaviour
     void Update()
     {
         spawnTime += Time.deltaTime;
+        updateTime += Time.deltaTime;
         if (spawnTime >= spawnInterval)
         {
             if (UnityEngine.Random.Range(0f, 2f) >= 1)
             {
-                spawnSheep(40);
+                spawnSheep(Math.Min(player.transform.position.x + 50, 95));
             } else
             {
-                spawnSheep(-40);
+                spawnSheep(Math.Max(player.transform.position.x - 50, -95));
             }
             spawnTime -= spawnInterval;
             spawnInterval = Math.Max(1.0f, spawnLength + UnityEngine.Random.Range(-6f, 6f));
         }
-        if ((int)(Time.fixedTime / timeUnit) - (int)((Time.fixedTime - Time.deltaTime) / timeUnit) == 1)
+        if (updateTime >= timeUnit)
         {
+            updateTime -= timeUnit;
             if (UnityEngine.Random.Range(0.0f, 1.0f) < rateChance)
             {
                 startRate += rateAcc;
@@ -61,7 +64,7 @@ public class Worldbuilder : MonoBehaviour
     }
     public void placeGround()
     {
-        for (int i = -100; i <= 100; i++)
+        for (int i = -130; i <= 130; i++)
         {
             Vector3Int v = new Vector3Int(i, -6, 0);
             terrain.SetTile(v, tiles[1]);
@@ -75,26 +78,33 @@ public class Worldbuilder : MonoBehaviour
 
     public void spawnSheep(float x)
     {
-        float r = UnityEngine.Random.Range(0f, difficulty) % 5.0f;
-        if (r <= 1.0f)
+        float y = difficulty;
+        while (y >= 0)
         {
-            sheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(2, 4);
-            Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
-        } else if (r <= 2.0f)
-        {
-            flyingSheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(3, 5);
-            flyingSheep.GetComponent<FlyingSheepMovement>().height = UnityEngine.Random.Range(3, 7);
-            Instantiate(flyingSheep, new Vector3(x, 0, 0), Quaternion.identity);
-        } else if (r <= 3.0f)
-        {
-            Instantiate(bigSheep, new Vector3(x, -4.0f, 0), Quaternion.identity);
-        } else if (r <= 4.0f) {
-            Instantiate(astralSheep, new Vector3(x, 0, 0), Quaternion.identity);
-        } else
-        {
-            sheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(2, 4);
-            Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
-            Instantiate(sheep, new Vector3(-x, -4.5f, 0), Quaternion.identity);
+            float r = UnityEngine.Random.Range(0f, y) % 4.0f;
+            if (r <= 1.0f)
+            {
+                sheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(2, 4);
+                Instantiate(sheep, new Vector3(x, -4.5f, 0), Quaternion.identity);
+                y -= 1.0f;
+            }
+            else if (r <= 2.0f)
+            {
+                flyingSheep.GetComponent<EnemyMove>().speed = UnityEngine.Random.Range(3, 5);
+                flyingSheep.GetComponent<FlyingSheepMovement>().height = UnityEngine.Random.Range(3, 7);
+                Instantiate(flyingSheep, new Vector3(x, 0, 0), Quaternion.identity);
+                y -= 2.0f;
+            }
+            else if (r <= 3.0f)
+            {
+                Instantiate(bigSheep, new Vector3(x, -4.0f, 0), Quaternion.identity);
+                y -= 3.0f;
+            }
+            else if (r <= 4.0f)
+            {
+                Instantiate(astralSheep, new Vector3(x, 0, 0), Quaternion.identity);
+                y -= 4.0f;
+            }
         }
     }
 }

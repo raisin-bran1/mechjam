@@ -22,6 +22,7 @@ public class Display : MonoBehaviour
     {
         displayText.text = "HP: " + ((float)(int)(combat.GetHealth() * 10) / 10.0f).ToString() + "/" + ((float)(int)(combat.GetMaxHealth() * 10) / 10.0f).ToString() + "\n" +
             "ENERGY: " + ((float)(int)(combat.GetEnergy() * 10) / 10.0f).ToString() + "/" + ((float)(int)(combat.GetMaxEnergy() * 10) / 10.0f).ToString() + "\n" +
-            "BASE HP: " + ((float)(int)(interaction.GetHealth() * 10) / 10.0f).ToString() + "/" + ((float)(int)(interaction.GetMaxHealth() * 10) / 10.0f).ToString();
+            "BASE HP: " + ((float)(int)(interaction.GetHealth() * 10) / 10.0f).ToString() + "/" + ((float)(int)(interaction.GetMaxHealth() * 10) / 10.0f).ToString() + "\n" + 
+            "BASE STAGE: " + combat.GetLevel().ToString() + "/9";
     }
 }
