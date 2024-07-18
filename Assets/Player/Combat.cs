@@ -9,7 +9,7 @@ public class Combat : MonoBehaviour
     public GameObject missile, laser;
     private float cooldown = 0.0f;
     public float damage;
-    public const float startingMaxEnergy = 5;
+    public const float startingMaxEnergy = 10;
     public const float startingMaxHealth = 10;
     private float maxHealth = startingMaxHealth;
     public float health = startingMaxHealth;
@@ -26,9 +26,11 @@ public class Combat : MonoBehaviour
     public bool dead = false;
     private int level = 0;
     public AudioClip ding;
+    private float deathTime;
 
     public PlayerMovement move;
     public Upgrade upgrade;
+    public GameObject explosion;
 
     Animator animator;
     PlayerMovement movement;
@@ -44,88 +46,105 @@ public class Combat : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         col = gameObject.GetComponent<BoxCollider2D>();
         GetComponent<Rigidbody2D>().WakeUp();
+        animator.SetFloat("health", health);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (damageGradient > 0)
+        if (!dead)
         {
-            UpdateDamageColor();
-        }
-        cooldown -= Time.deltaTime;
-        invincibility = Math.Max(invincibility - Time.deltaTime, 0);
-
-        if (Input.GetMouseButton(0) && energy >= 1)
-        {
-            if (!lasering && !beaming && !recovering)
+            if (damageGradient > 0)
             {
-                if (cooldown <= 0)
+                UpdateDamageColor();
+            }
+            cooldown -= Time.deltaTime;
+            invincibility = Math.Max(invincibility - Time.deltaTime, 0);
+
+
+            if (Input.GetMouseButton(0) && energy >= 1)
+            {
+                if (!lasering && !beaming && !recovering)
                 {
-                    SpawnMissile();
-                    cooldown = 0.5f;
-                    energy -= 1;
+                    if (cooldown <= 0)
+                    {
+                        SpawnMissile();
+                        cooldown = 0.5f;
+                        energy -= 1;
+                    }
                 }
             }
-        }
-        if (Input.GetMouseButton(1) && energy > 0)
-        {
-            if (!lasering && cooldown <= 0)
+            if (Input.GetMouseButton(1) && energy > 0)
             {
-                lasering = true;
-                animator.SetBool("lasering", true);
-                movement.speed = 0;
-                cooldown = 0.85f;
+                if (!lasering && cooldown <= 0)
+                {
+                    lasering = true;
+                    animator.SetBool("lasering", true);
+                    movement.speed = 0;
+                    cooldown = 0.85f;
+                }
+                else
+                {
+                    if (cooldown <= 0 && !beaming)
+                    {
+                        SpawnLaser();
+                        beaming = true;
+                        animator.SetBool("beaming", true);
+                    }
+                    else if (beaming)
+                    {
+                        energy -= Time.deltaTime * 5;
+                        energy = Math.Max(energy, 0);
+                    }
+                }
             }
             else
             {
-                if (cooldown <= 0 && !beaming)
+                if (lasering && cooldown <= 0)
                 {
-                    SpawnLaser();
-                    beaming = true;
-                    animator.SetBool("beaming", true);
-                } else if (beaming)
-                {
-                    energy -= Time.deltaTime * 5;
-                    energy = Math.Max(energy, 0);
+                    lasering = false;
+                    beaming = false;
+                    animator.SetBool("lasering", false);
+                    animator.SetBool("beaming", false);
+                    recovering = true;
+                    cooldown = 0.8f;
+                    Destroy(GameObject.FindWithTag("Laser"));
+                    Vector2 s = col.size;
+                    s.x = 0.95f;
+                    col.size = s;
+                    Vector2 o = col.offset;
+                    o.x = 0;
+                    col.offset = o;
                 }
             }
-        }
-        else
-        {
-            if (lasering && cooldown <= 0)
+            if (recovering && cooldown <= 0)
             {
-                lasering = false;
-                beaming = false;
-                animator.SetBool("lasering", false);
-                animator.SetBool("beaming", false);
-                recovering = true;
-                cooldown = 0.8f;
-                Destroy(GameObject.FindWithTag("Laser"));
-                Vector2 s = col.size;
-                s.x = 0.95f;
-                col.size = s;
-                Vector2 o = col.offset;
-                o.x = 0;
-                col.offset = o;
+                recovering = false;
+                movement.speed = speed;
             }
-        }
-        if (recovering && cooldown <= 0)
+        } else
         {
-            recovering = false;
-            movement.speed = speed;
+            if (Time.fixedTime - deathTime < 1.0f && UnityEngine.Random.Range(0.0f, 1.0f) < 0.01f)
+            {
+                GameObject e = Instantiate(explosion, gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), 0), Quaternion.identity);
+                e.GetComponent<Animator>().Play("Explosion", -1, 0f);
+                GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
+                Destroy(e, 0.35f);
+            }
         }
 
         if (health <= 0 && !dead)
         {
             dead = true;
             StartCoroutine(GameOver());
+            deathTime = Time.fixedTime;
         }
 
         if (Input.GetKeyDown(KeyCode.F) && energy == maxEnergy)
+        if (!dead && Input.GetKeyDown(KeyCode.P) && energy >= maxEnergy - 5)
         {
-            energy = 0;
+            energy -= maxEnergy - 5;
             level++;
             maxHealth += 5;
             health += 5;
@@ -189,6 +208,7 @@ public class Combat : MonoBehaviour
     {
         if (invincibility == 0) {
             health -= d;
+            animator.SetFloat("health", health);
             invincibility = damageTime;
             damageGradient = damageTime;
             spriteRenderer.color = Color.red;

@@ -33,6 +33,7 @@ public class Credits_script : MonoBehaviour
         pausebutton.NormalPause();
         pausebutton.Activate();
         player.GetComponent<Combat>().health = player.GetComponent<Combat>().GetMaxHealth();
+        player.GetComponent<Animator>().SetFloat("health", player.GetComponent<Combat>().GetMaxHealth());
         player.GetComponent<Rigidbody2D>().WakeUp();
         player.transform.position = new Vector3(0, 5, 0);
         player.GetComponent<Combat>().dead = false;
