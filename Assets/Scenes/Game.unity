@@ -930,6 +930,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1055,6 +1056,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1162860277}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8159ec72b80d847b4eb11e515204b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shake: 0
+  shakeAmount: 0.2
+  decreaseFactor: 0.3
 --- !u!1 &524400474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,7 +1722,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionObject: {fileID: 3817194069229057385, guid: 8eedad62411684e47bfdde04435f49c4, type: 3}
   transitionObject1: {fileID: 3817194069229057385, guid: 9e2153e2f3c301947a883f5e62576235, type: 3}
-  click: {fileID: 8300000, guid: 1c7d8dced07db8f4cbe5571dce322474, type: 3}
 --- !u!4 &1438342253
 Transform:
   m_ObjectHideFlags: 0
@@ -2077,6 +2092,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4343058610851993885, guid: 22a6a94079f54a34a83df87e5b0b17ff, type: 3}
+      propertyPath: deathscreen
+      value: 
+      objectReference: {fileID: 4783977696032618297, guid: 49abbe5960985f4409c6a4d11718b218, type: 3}
     - target: {fileID: -2662433291534599478, guid: 22a6a94079f54a34a83df87e5b0b17ff, type: 3}
       propertyPath: m_Size.x
       value: 1.851654
@@ -2105,10 +2124,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -38567940, guid: 6ba0f5133baf5944ead91d2db26cb78d, type: 3}
-    - target: {fileID: -4343058610851993885, guid: 22a6a94079f54a34a83df87e5b0b17ff, type: 3}
-      propertyPath: deathscreen
-      value: 
-      objectReference: {fileID: 4783977696032618297, guid: 49abbe5960985f4409c6a4d11718b218, type: 3}
     - target: {fileID: 7254809071974260491, guid: 22a6a94079f54a34a83df87e5b0b17ff, type: 3}
       propertyPath: m_SortingLayer
       value: -2

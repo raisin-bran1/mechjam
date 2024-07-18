@@ -29,7 +29,7 @@ public class Combat : MonoBehaviour
     Animator animator;
     PlayerMovement movement;
     SpriteRenderer spriteRenderer;
-    BoxCollider2D collider;
+    BoxCollider2D col;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class Combat : MonoBehaviour
         movement = gameObject.GetComponent<PlayerMovement>();
         speed = movement.speed;
         animator = gameObject.GetComponent<Animator>();
-        collider = gameObject.GetComponent<BoxCollider2D>();
+        col = gameObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -100,12 +100,12 @@ public class Combat : MonoBehaviour
                 recovering = true;
                 cooldown = 0.8f;
                 Destroy(GameObject.FindWithTag("Laser"));
-                Vector2 s = collider.size;
+                Vector2 s = col.size;
                 s.x = 0.95f;
-                collider.size = s;
-                Vector2 o = collider.offset;
+                col.size = s;
+                Vector2 o = col.offset;
                 o.x = 0;
-                collider.offset = o;
+                col.offset = o;
             }
         }
         if (recovering && cooldown <= 0)
@@ -143,7 +143,7 @@ public class Combat : MonoBehaviour
     {
         Vector3 pos = gameObject.transform.position;
         pos.y -= 0.5f;
-        Vector2 o = collider.offset;
+        Vector2 o = col.offset;
         if (GetFlip() == 1)
         {
             o.x = 0.7f;
@@ -154,11 +154,11 @@ public class Combat : MonoBehaviour
             o.x = -0.7f;
             pos.x -= 5.4f;
         }
-        collider.offset = o;
+        col.offset = o;
         Instantiate(laser, pos, Quaternion.identity);
-        Vector2 s = collider.size;
+        Vector2 s = col.size;
         s.x = 2.0f;
-        collider.size = s;
+        col.size = s;
     }
 
     public int Damage(float d)

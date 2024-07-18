@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class Worldbuilder : MonoBehaviour
 {
     private float spawnTime = 0f, spawnLength, spawnInterval;
-    private Tile tile;
+    private Tile[] tiles;
     private Tilemap terrain;
     private float difficulty;
     //rate in enemies per t, acceleration in enemies per t per t, chance to accelerate rate rather than increment difficulty; difficulty starts at .5 and each next stronger sheep starts appearing at each integer
@@ -22,7 +22,7 @@ public class Worldbuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tile = Resources.Load<Tile>("Temp_tile");
+        tiles = Resources.LoadAll<Tile>("Tiles");
         terrain = GameObject.Find("Terrain").GetComponent<Tilemap>();
         placeGround();
         spawnSheep(40);
@@ -61,10 +61,15 @@ public class Worldbuilder : MonoBehaviour
     }
     public void placeGround()
     {
-        for (int i = -50; i <= 50; i++)
+        for (int i = -100; i <= 100; i++)
         {
             Vector3Int v = new Vector3Int(i, -6, 0);
-            terrain.SetTile(v, tile);
+            terrain.SetTile(v, tiles[1]);
+            for (int j = -7; j >= -12; j--)
+            {
+                Vector3Int w = new Vector3Int(i, j, 0);
+                terrain.SetTile(w, tiles[4]);
+            }
         }
     }
 

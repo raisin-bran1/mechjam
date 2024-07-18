@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Temp_tile
+  m_Name: grass_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -414347323, guid: 2baf4d785fc772747984f1eeb2a14822, type: 3}
+  m_Sprite: {fileID: 224618132, guid: 24a2034e8c3f5cf4a858449e83078125, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
