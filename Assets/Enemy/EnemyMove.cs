@@ -92,15 +92,18 @@ public class EnemyMove : MonoBehaviour
         return ragdoll;
     }
 
-    public void Kill()
+    public void Kill(int type)
     {
-        Vector2 v = new Vector2();
-        v.y = 5 + UnityEngine.Random.Range(-1.0f, 1.0f);
-        v.x = UnityEngine.Random.Range(-3.0f, 3.0f);
-        rb.velocity = v;
-        rb.constraints = RigidbodyConstraints2D.None;
-        rb.angularVelocity = UnityEngine.Random.Range(-800.0f, 800.0f);
         dead = true;
+        if (type == 0)
+        {
+            Vector2 v = new Vector2();
+            v.y = 5 + UnityEngine.Random.Range(-1.0f, 1.0f);
+            v.x = UnityEngine.Random.Range(-3.0f, 3.0f);
+            rb.velocity = v;
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.angularVelocity = UnityEngine.Random.Range(-800.0f, 800.0f);
+        }
     }
 
     public float GetRand()

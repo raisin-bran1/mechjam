@@ -14,6 +14,8 @@ public class EnemyCombat : MonoBehaviour
     public float energyGiven;
     public AudioClip hurt, pop;
 
+    public GameObject explosion;
+
     GameObject player;
     BoxCollider2D playerCollider;
     BoxCollider2D coll;
@@ -52,10 +54,28 @@ public class EnemyCombat : MonoBehaviour
         AudioSource.PlayClipAtPoint(pop, transform.position, 1);
         if (type == 0)
         {
-            move.Kill();
+            move.Kill(0);
             Destroy(gameObject, 4.0f);
             spriteRenderer.sortingLayerName = "Super Foreground";
             gameObject.layer = 6;
+        }
+        if (type == 1)
+        {
+            GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
+            e.GetComponent<Animator>().Play("Explosion", -1, 0f);
+            GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
+            Destroy(e, 0.35f);
+            Destroy(gameObject);
+        }
+        if (type == 2)
+        {
+            move.Kill(1);
+            Destroy(gameObject, 0.417f);
+            Color c = spriteRenderer.color;
+            c.a = 0f;
+            spriteRenderer.color = c;
+            gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("Death", true);
+            gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
@@ -107,7 +127,7 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public float Damage(float damage)
+    public float Damage(float damage, int type)
     {
         if (!dead && started)
         {
@@ -116,7 +136,7 @@ public class EnemyCombat : MonoBehaviour
             damageGradient = damageTime;
             if (health <= 0)
             {
-                Kill(0);
+                Kill(type);
                 return energyGiven;
             }
             return 0;

@@ -135,7 +135,6 @@ public class Combat : MonoBehaviour
             {
                 GameObject e = Instantiate(explosion, gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), 0), Quaternion.identity);
                 e.GetComponent<Animator>().Play("Explosion", -1, 0f);
-                GameObject.FindWithTag("MainCamera").GetComponent<Screenshake>().shake = 0.1f;
                 Destroy(e, 0.35f);
             }
         }

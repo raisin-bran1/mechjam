@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                 Collider2D col = collisions[i];
                 if (col.gameObject.tag == "Enemy")
                 {
-                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(collision.relativeVelocity.magnitude));
+                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(collision.relativeVelocity.magnitude, 0));
                     if (!col.gameObject.GetComponent<EnemyCombat>().dead)
                     {
                         col.gameObject.GetComponent<EnemyMove>().Ragdoll(3.0f);

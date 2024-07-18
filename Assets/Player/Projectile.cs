@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed = 20, damage = 5;
+    public float speed = 20, damage;
     public Rigidbody2D rb;
     private Camera cam;
     public GameObject explosion;
@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.magnitude > 50)
+        if (transform.position.magnitude > 100)
         {
             Destroy(gameObject);
         }
@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.tag == "Enemy")
             {
                 // Damage enemy
-                combat.AddEnergy(collision.gameObject.GetComponent<EnemyCombat>().Damage(damage));
+                combat.AddEnergy(collision.gameObject.GetComponent<EnemyCombat>().Damage(player.GetComponent<Combat>().damage, 0));
             }
             //make explosion
             GameObject e = Instantiate(explosion, gameObject.transform.position, Quaternion.identity);
@@ -64,7 +64,7 @@ public class Projectile : MonoBehaviour
                 Collider2D col = collisions[i];
                 if (col.gameObject.tag == "Enemy")
                 {
-                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(damage));
+                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(player.GetComponent<Combat>().damage, 0));
                 }
             }
             Destroy(e, 0.35f);

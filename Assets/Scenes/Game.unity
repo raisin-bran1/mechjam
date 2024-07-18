@@ -1598,6 +1598,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1003983553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4449258258939737605, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
+  m_PrefabInstance: {fileID: 7012042983613578650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1162860277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3025380434694362545, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
@@ -2323,7 +2328,7 @@ MonoBehaviour:
   rateChance: 0.3
   diffIncrement: 0.3
   timeUnit: 10
-  player: {fileID: 4449258258939737605, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
+  player: {fileID: 1003983553}
   sheep: {fileID: 6670954835941540000, guid: e049606cd688a7f4a979d7e93282da30, type: 3}
   bigSheep: {fileID: 8196542108055593352, guid: 026f6019d3e4d7544bbdb02358dab1bc, type: 3}
   flyingSheep: {fileID: 863059783829112173, guid: 6a982726d66f0ba42a73c31b5c44efba, type: 3}
@@ -2751,7 +2756,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1574790678312741214, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
   m_PrefabInstance: {fileID: 7012042983613578650}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1003983553}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85a82b23e046fb548a84c827869cf8fc, type: 3}
