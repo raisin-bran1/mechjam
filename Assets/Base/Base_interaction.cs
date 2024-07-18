@@ -52,7 +52,6 @@ public class Base_interaction : MonoBehaviour
         yield return new WaitForSeconds(2);
         Pause_Button pausebutton = GameObject.FindWithTag("Pause").GetComponent<Pause_Button>();
         pausebutton.TogglePause(0.95f);
-        Time.timeScale = 1;
         pausebutton.Deactivate();
         Instantiate(deathscreen);
     }

@@ -9,9 +9,9 @@ public class Combat : MonoBehaviour
     private float cooldown = 0.0f;
     public float damage;
     public const float startingMaxEnergy = 10;
-    public const float startingMaxHealth = 10;
+    public const float startingMaxHealth = 1;
     private float maxHealth = startingMaxHealth;
-    private float health = startingMaxHealth;
+    public float health = startingMaxHealth;
     private float invincibility = 0;
     private static float damageTime = 0.5f;
     private float damageGradient;
@@ -21,6 +21,8 @@ public class Combat : MonoBehaviour
     private float speed;
     private float energy = 0;
     private float maxEnergy = startingMaxEnergy;
+    public GameObject deathscreen;
+    public bool dead = false;
 
     public PlayerMovement move;
 
@@ -37,6 +39,7 @@ public class Combat : MonoBehaviour
         speed = movement.speed;
         animator = gameObject.GetComponent<Animator>();
         col = gameObject.GetComponent<BoxCollider2D>();
+        GetComponent<Rigidbody2D>().WakeUp();
     }
 
     // Update is called once per frame
@@ -103,6 +106,12 @@ public class Combat : MonoBehaviour
         {
             recovering = false;
             movement.speed = speed;
+        }
+
+        if (health <= 0 && !dead)
+        {
+            dead = true;
+            StartCoroutine(GameOver());
         }
     }
 
@@ -193,4 +202,13 @@ public class Combat : MonoBehaviour
         return maxEnergy;
     }
 
+    IEnumerator GameOver()
+    {
+        GetComponent<Rigidbody2D>().Sleep();
+        yield return new WaitForSeconds(2);
+        Pause_Button pausebutton = GameObject.FindWithTag("Pause").GetComponent<Pause_Button>();
+        pausebutton.TogglePause(0.95f);
+        pausebutton.Deactivate();
+        Instantiate(deathscreen);
+    }
 }

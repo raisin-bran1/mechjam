@@ -1288,6 +1288,7 @@ MonoBehaviour:
   missile: {fileID: 5974020045485489920, guid: 848394bf84fb1f945b3678bd2f045556, type: 3}
   laser: {fileID: 2339611323139433225, guid: 286fcad235f8c4c4a9e34bd2c41df51c, type: 3}
   damage: 5
+  deathscreen: {fileID: 4783977696032618297, guid: 6e131e0933ccce347bc1add633b62e73, type: 3}
   move: {fileID: 2046948032931928356}
 --- !u!95 &1249213576808779118
 Animator:

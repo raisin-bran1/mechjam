@@ -40,6 +40,7 @@ public class GameControl : MonoBehaviour
 
     public void LoadScene(string scene)
     {
+        Time.timeScale = 1;
         GameObject t = Instantiate(transitionObject);
         Transition script = t.GetComponent<Transition>();
         script.LoadScene(scene);
