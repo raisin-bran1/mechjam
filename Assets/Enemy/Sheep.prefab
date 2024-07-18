@@ -105,7 +105,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 334f0cf190413e3429121220aa65b197, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -195,7 +195,6 @@ MonoBehaviour:
   energyGiven: 1
   hurt: {fileID: 8300000, guid: d6dceeaf623853049a4a9061f4d9bc1c, type: 3}
   pop: {fileID: 8300000, guid: 9605c4fc4fc2ff849af1ef85deb3ad88, type: 3}
-  player: {fileID: 4449258258939737605, guid: 24d54cb3147567d4395c9e3439181303, type: 3}
 --- !u!95 &4156309635337331024
 Animator:
   serializedVersion: 5

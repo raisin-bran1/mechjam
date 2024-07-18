@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     SpriteRenderer spriteRenderer;
     BoxCollider2D col;
+    Combat combat;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         col = gameObject.GetComponent<BoxCollider2D>();
         fuel = maxFuel;
         trigger = GameObject.Find("PlayerTrigger");
+        combat = gameObject.GetComponent<Combat>();
     }
 
     // Update is called once per frame
@@ -184,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                 Collider2D col = collisions[i];
                 if (col.gameObject.tag == "Enemy")
                 {
-                    col.gameObject.GetComponent<EnemyCombat>().Damage(collision.relativeVelocity.magnitude);
+                    combat.AddEnergy(col.gameObject.GetComponent<EnemyCombat>().Damage(collision.relativeVelocity.magnitude));
                     if (!col.gameObject.GetComponent<EnemyCombat>().dead)
                     {
                         col.gameObject.GetComponent<EnemyMove>().Ragdoll(3.0f);
