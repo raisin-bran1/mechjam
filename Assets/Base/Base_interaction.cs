@@ -49,6 +49,9 @@ public class Base_interaction : MonoBehaviour
     IEnumerator GameOver()
     {
         GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("rocket_center").GetComponentInChildren<SpriteRenderer>().enabled = false;
+        GameObject.Find("rocket_left").GetComponentInChildren<SpriteRenderer>().enabled = false;
+        GameObject.Find("rocket_right").GetComponentInChildren<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(2);
         Pause_Button pausebutton = GameObject.FindWithTag("Pause").GetComponent<Pause_Button>();
         pausebutton.TogglePause(0.95f);

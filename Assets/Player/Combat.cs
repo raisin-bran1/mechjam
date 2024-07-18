@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Combat : MonoBehaviour
@@ -24,6 +25,7 @@ public class Combat : MonoBehaviour
     public GameObject deathscreen;
     public bool dead = false;
     private int level = 0;
+    public AudioClip ding;
 
     public PlayerMovement move;
     public Upgrade upgrade;
@@ -121,7 +123,7 @@ public class Combat : MonoBehaviour
             StartCoroutine(GameOver());
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && energy == maxEnergy)
+        if (Input.GetKeyDown(KeyCode.F) && energy == maxEnergy)
         {
             energy = 0;
             level++;
@@ -133,6 +135,7 @@ public class Combat : MonoBehaviour
             }
             damage += 1f;
             maxEnergy += 5;
+            AudioSource.PlayClipAtPoint(ding, transform.position, 1);
         }
     }
 

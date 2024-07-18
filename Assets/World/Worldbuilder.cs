@@ -19,6 +19,7 @@ public class Worldbuilder : MonoBehaviour
     public GameObject bigSheep;
     public GameObject flyingSheep;
     public GameObject astralSheep;
+    public GameObject mountain, mountainsflipped;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class Worldbuilder : MonoBehaviour
         tiles = Resources.LoadAll<Tile>("Tiles");
         terrain = GameObject.Find("Terrain").GetComponent<Tilemap>();
         placeGround();
+        placeMountains();
         spawnSheep(40);
         spawnLength = timeUnit / startRate;
         difficulty = 0.5f;
@@ -104,6 +106,22 @@ public class Worldbuilder : MonoBehaviour
             {
                 Instantiate(astralSheep, new Vector3(x, 0, 0), Quaternion.identity);
                 y -= 4.0f;
+            }
+        }
+    }
+
+    public void placeMountains()
+    {
+        int j = 0;
+        for (int i = -128; i <= 128; i+=48)
+        {
+            j++;
+            if (j % 2 == 0)
+            {
+                Instantiate(mountain, new Vector3(i, 6, 0), Quaternion.identity);
+            } else
+            {
+                Instantiate(mountainsflipped, new Vector3(i, 6, 0), Quaternion.identity);
             }
         }
     }
