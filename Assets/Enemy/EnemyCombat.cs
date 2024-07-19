@@ -11,6 +11,7 @@ public class EnemyCombat : MonoBehaviour
     private static float damageTime = 0.5f;
     private bool started = false;
     public bool dead = false;
+    public bool updateColor = true;
     public float energyGiven;
     public AudioClip hurt, pop;
 
@@ -38,7 +39,7 @@ public class EnemyCombat : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if (damageGradient > 0) {
+        if (updateColor && damageGradient > 0) {
             UpdateDamageColor();
         }
     }
@@ -69,11 +70,11 @@ public class EnemyCombat : MonoBehaviour
         }
         if (type == 2)
         {
+            updateColor = false;
             move.Kill(1);
-            Destroy(gameObject, 0.417f);
-            Color c = spriteRenderer.color;
-            c.a = 0f;
-            spriteRenderer.color = c;
+            Destroy(gameObject, 1.251f);
+            spriteRenderer.color = Color.black;
+            gameObject.GetComponent<Animator>().SetBool("Death", true);
             gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("Death", true);
             gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
         }

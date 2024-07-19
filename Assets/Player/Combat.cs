@@ -20,7 +20,7 @@ public class Combat : MonoBehaviour
     private bool lasering = false;
     private bool recovering = false;
     private float speed;
-    private float energy = 0;
+    private float energy = startingMaxEnergy;
     private float maxEnergy = startingMaxEnergy;
     public GameObject deathscreen;
     public bool dead = false;
